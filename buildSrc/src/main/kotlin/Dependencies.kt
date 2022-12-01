@@ -1,5 +1,5 @@
 object Config {
-    const val applicationId = "base.architecture"
+    const val applicationId = "com.musinsa.jth"
 
     object Android {
         const val core = "androidx.core:core-ktx:1.7.0"

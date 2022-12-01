@@ -26,4 +26,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    dependencies {
+        implementation(Config.Kotlin.Coroutine.coroutines)
+        testImplementation(Config.Kotlin.Coroutine.coroutineTest)
+    }
 }

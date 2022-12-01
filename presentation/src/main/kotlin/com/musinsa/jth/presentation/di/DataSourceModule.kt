@@ -1,0 +1,17 @@
+package com.musinsa.jth.presentation.di
+
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import com.musinsa.jth.data.datasource.ContentsRemoteSource
+import com.musinsa.jth.data.datasource.ContentsRemoteSourceImpl
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class DataSourceModule {
+    @Singleton
+    @Binds
+    abstract fun bindContentsRemoteSource(source: ContentsRemoteSourceImpl): ContentsRemoteSource
+}
