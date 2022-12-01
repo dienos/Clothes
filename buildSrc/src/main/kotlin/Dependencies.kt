@@ -8,6 +8,10 @@ object Config {
 
         const val androidGradle = "com.android.tools.build:gradle:7.0.2"
 
+        object ViewPager {
+            const val viewPager2 = "androidx.viewpager2:viewpager2:1.0.0-alpha04"
+        }
+
         object KTX {
             const val activity = "androidx.activity:activity-ktx:1.1.0"
             const val fragment = "androidx.fragment:fragment-ktx:1.2.5"

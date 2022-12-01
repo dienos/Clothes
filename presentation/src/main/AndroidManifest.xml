@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Musinsa">
 
         <activity
-            android:name=".views.MainActivity"
+            android:name=".views.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar"

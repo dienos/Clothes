@@ -14,5 +14,5 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindSampleRepository(repository: ContentsRepositoryImpl): ContentsRepository
+    abstract fun bindContentsRepository(repository: ContentsRepositoryImpl): ContentsRepository
 }

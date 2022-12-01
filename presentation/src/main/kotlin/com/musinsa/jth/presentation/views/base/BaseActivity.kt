@@ -1,4 +1,4 @@
-package com.musinsa.jth.presentation.views
+package com.musinsa.jth.presentation.views.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes

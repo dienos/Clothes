@@ -1,9 +1,10 @@
-package com.musinsa.jth.presentation.views
+package com.musinsa.jth.presentation.views.main
 
 import androidx.activity.viewModels
 import com.musinsa.jth.presentation.R
 import com.musinsa.jth.presentation.databinding.MainActivityBinding
 import com.musinsa.jth.presentation.viewmodels.MainViewModel
+import com.musinsa.jth.presentation.views.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

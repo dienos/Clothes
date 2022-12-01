@@ -78,6 +78,9 @@ dependencies {
     implementation(Config.Android.core)
     implementation( Config.Android.appcompat)
     implementation( Config.Android.material)
+
+    implementation(Config.Android.ViewPager.viewPager2)
+
     testImplementation( Config.Android.Test.jUnit)
     androidTestImplementation(Config.Android.Test.ext)
     androidTestImplementation(Config.Android.Test.espresso)
