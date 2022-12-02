@@ -3,19 +3,23 @@ package com.musinsa.jth.presentation.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
 import com.musinsa.jth.domain.model.remote.Banner
 import com.musinsa.jth.domain.model.remote.ContentsItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.musinsa.jth.domain.model.remote.Data
 import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.domain.usecase.ConvertContentsListToMapUseCase
+import com.musinsa.jth.domain.usecase.GetContentsByPagingUseCase
 import com.musinsa.jth.domain.usecase.GetContentsUseCase
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getContentsUseCase: GetContentsUseCase,
-    private val convertContentsListToMapUseCase : ConvertContentsListToMapUseCase
+    private val convertContentsListToMapUseCase: ConvertContentsListToMapUseCase,
+    private val getContentsByPagingUseCase: GetContentsByPagingUseCase
 ) : BaseViewModel() {
     private var _contentsData = MutableLiveData<Data>()
     val contentsData: LiveData<Data> = _contentsData
@@ -37,4 +41,7 @@ class MainViewModel @Inject constructor(
             updateProgress(false)
         })
     }
+
+    fun getContentsByType(type : String): Flow<PagingData<ContentsItem>> =
+        getContentsByPagingUseCase(type)
 }

@@ -8,16 +8,21 @@
         <variable
             name="item"
             type="com.musinsa.jth.domain.model.remote.DataItem" />
+
+        <variable
+            name="activity"
+            type="com.musinsa.jth.presentation.views.main.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            app:activity="@{activity}"
             app:sub_items="@{item}"
             />
 

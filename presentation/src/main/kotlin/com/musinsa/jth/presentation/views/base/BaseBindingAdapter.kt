@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 
-
 @BindingAdapter(value = ["contents_image"])
 fun setImage(view: ImageView, url: String?) {
     url?.let {

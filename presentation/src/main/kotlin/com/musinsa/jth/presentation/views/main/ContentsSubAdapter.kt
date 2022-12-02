@@ -1,5 +1,6 @@
 package com.musinsa.jth.presentation.views.main
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.musinsa.jth.data.model.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
-import com.musinsa.jth.domain.model.remote.DataItem
+import com.musinsa.jth.presentation.MuSinSaApplication
 import com.musinsa.jth.presentation.databinding.ContentSubGoodsItemBinding
 import com.musinsa.jth.presentation.databinding.ContentSubStyleItemBinding
+import com.musinsa.jth.presentation.views.web.Const
+import com.musinsa.jth.presentation.views.web.WebViewActivity
 
-class ContentsSubAdapter(private val item: DataItem) :
+class ContentsSubAdapter(private val type: String) :
     PagingDataAdapter<ContentsItem, RecyclerView.ViewHolder>(ContentsDiffCallback) {
 
     inner class GoodsViewHolder(itemView: View, _bind: ContentSubGoodsItemBinding) :
@@ -41,6 +44,7 @@ class ContentsSubAdapter(private val item: DataItem) :
                     parent,
                     false
                 )
+                bind.adapter = this
                 GoodsViewHolder(bind.root, bind)
             }
 
@@ -50,16 +54,19 @@ class ContentsSubAdapter(private val item: DataItem) :
                     parent,
                     false
                 )
+                bind.adapter = this
                 StyleViewHolder(bind.root, bind)
             }
 
             else -> {
-                val binding = ContentSubGoodsItemBinding.inflate(
+                val bind = ContentSubGoodsItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                GoodsViewHolder(binding.root, binding)
+
+                bind.adapter = this
+                GoodsViewHolder(bind.root, bind)
             }
         }
     }
@@ -79,7 +86,7 @@ class ContentsSubAdapter(private val item: DataItem) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (item.contents.type) {
+        return when (type) {
             ContentsType.GRID.name -> {
                 ContentsType.GRID.intType
             }
@@ -97,6 +104,14 @@ class ContentsSubAdapter(private val item: DataItem) :
             }
         }
     }
+
+    fun onBannerItemClick(url: String) {
+        val context = MuSinSaApplication.applicationContext()
+        val intent = Intent(context, WebViewActivity::class.java)
+        intent.putExtra(Const.WEB_URL, url)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
 }
 
 object ContentsDiffCallback : DiffUtil.ItemCallback<ContentsItem>() {
@@ -105,7 +120,6 @@ object ContentsDiffCallback : DiffUtil.ItemCallback<ContentsItem>() {
     }
 
     override fun areContentsTheSame(oldItem: ContentsItem, newItem: ContentsItem): Boolean {
-        return oldItem.title == newItem.title
-
+        return  oldItem == newItem
     }
 }

@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="activity"
+            type="com.musinsa.jth.presentation.views.main.MainActivity" />
+
+        <variable
             name="viewModel"
             type="com.musinsa.jth.presentation.viewmodels.MainViewModel" />
     </data>
@@ -25,8 +29,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
+                app:activity="@{activity}"
                 app:items="@{viewModel.contentsMapData}"/>
 
         </androidx.core.widget.NestedScrollView>

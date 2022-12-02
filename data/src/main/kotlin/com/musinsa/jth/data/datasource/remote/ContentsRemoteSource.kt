@@ -1,4 +1,4 @@
-package com.musinsa.jth.data.datasource
+package com.musinsa.jth.data.datasource.remote
 
 import com.musinsa.jth.data.api.MuSinSaService
 import com.musinsa.jth.data.model.remote.DataModel

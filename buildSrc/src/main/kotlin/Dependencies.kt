@@ -13,10 +13,12 @@
         }
 
         object Paging {
-            private const val pagingVersion = "3.0.0-alpha11"
+            private const val pagingVersion = "3.1.1"
 
             const val runTime = "androidx.paging:paging-runtime:$pagingVersion"
             const val common = "androidx.paging:paging-common:$pagingVersion"
+            const val ktx =  "androidx.paging:paging-common-ktx:$pagingVersion"
+
         }
 
         object KTX {

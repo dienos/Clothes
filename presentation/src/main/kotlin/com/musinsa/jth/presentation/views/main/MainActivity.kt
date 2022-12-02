@@ -10,15 +10,18 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainActivityBinding>() {
     private val _viewModel: MainViewModel by viewModels()
-    private val viewModel: MainViewModel
+    val viewModel: MainViewModel
         get() = _viewModel
 
     override fun getLayoutResId(): Int = R.layout.main_activity
 
     override fun initializeViewModel() {
         binding?.viewModel = viewModel
+        binding?.activity = this
         binding?.viewModel?.getContents()
     }
 
-    override fun initializeUiEvent() {}
+    override fun initializeUiEvent() {
+
+    }
 }

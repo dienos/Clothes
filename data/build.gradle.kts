@@ -37,6 +37,7 @@ dependencies {
     implementation(Config.Square.retrofitGsonConverter)
 
     implementation(Config.Android.Room.runtime)
+    implementation(Config.Android.Paging.ktx)
     annotationProcessor(Config.Android.Room.compiler)
 
     kapt(Config.Android.Hilt.hiltAndroidCompiler)

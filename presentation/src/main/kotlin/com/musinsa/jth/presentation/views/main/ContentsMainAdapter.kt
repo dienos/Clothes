@@ -9,7 +9,7 @@ import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.presentation.databinding.BannerMainItemBinding
 import com.musinsa.jth.presentation.databinding.ContentMainItemBinding
 
-class ContentsMainAdapter(private val map: Map<String, DataItem>) :
+class ContentsMainAdapter(private val _activity: MainActivity, private val map: Map<String, DataItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val contentsKeys: List<String> = map.keys.toList()
 
@@ -18,6 +18,7 @@ class ContentsMainAdapter(private val map: Map<String, DataItem>) :
         private val bind = _bind
 
         fun bind(item: DataItem?) {
+            bind.activity = _activity
             bind.item = item
         }
     }
@@ -91,6 +92,10 @@ class ContentsMainAdapter(private val map: Map<String, DataItem>) :
 
             ContentsType.STYLE.name -> {
                 ContentsType.STYLE.intType
+            }
+
+            ContentsType.GRID.name -> {
+                ContentsType.GRID.intType
             }
 
             else -> {

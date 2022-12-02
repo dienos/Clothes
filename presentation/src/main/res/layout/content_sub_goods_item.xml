@@ -5,14 +5,83 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View" />
+
         <variable
             name="item"
             type="com.musinsa.jth.domain.model.remote.ContentsItem" />
+
+
+        <variable
+            name="adapter"
+            type="com.musinsa.jth.presentation.views.main.ContentsSubAdapter" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:onClick="@{() -> adapter.onBannerItemClick(item.linkURL)}">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_contents_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:contents_image="@{item.thumbnailURL}" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{item.brandName}"
+                android:textColor="@color/dark_grey"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:price="@{item.price}"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="@{@string/sale_percent(item.saleRate)}"
+                    android:textColor="@color/darkish_pink"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:padding="2dp"
+                    android:background="@drawable/shape_rectangle_20_soft_blue"
+                    android:text="@string/coupon"
+                    android:visibility="@{item.hasCoupon ? View.VISIBLE : View.GONE}"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </layout>
