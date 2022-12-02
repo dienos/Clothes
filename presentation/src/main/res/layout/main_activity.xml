@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="android.view.View" />
+
+        <variable
+            name="activity"
+            type="com.musinsa.jth.presentation.views.main.MainActivity" />
 
         <variable
             name="viewModel"
@@ -32,18 +36,16 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/viewPager2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     app:banner_items="@{viewModel.bannersData}"
                     android:orientation="horizontal" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rl_summoners"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingStart="16dp"
-                    app:layoutManager="LinearLayoutManager"
-                    tools:ignore="RtlSymmetry" />
+                    app:layoutManager="LinearLayoutManager"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

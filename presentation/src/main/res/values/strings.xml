@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">무신사 테스트</string>
+    <string name="banner_index">%1$d / %2$d</string>
 </resources>
