@@ -2,7 +2,7 @@ package com.musinsa.jth.domain.model.remote
 
 interface Contents {
     val type : String
-    val banners :  List<Banner>?
-    val goods :  List<Goods>?
-    val styles : List<Style>?
+    val banners :  List<ContentsItem>?
+    val goods :  List<ContentsItem>?
+    val styles : List<ContentsItem>?
 }
