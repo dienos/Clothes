@@ -5,12 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <import type="android.view.View" />
-
-        <variable
-            name="activity"
-            type="com.musinsa.jth.presentation.views.main.MainActivity" />
 
         <variable
             name="viewModel"
@@ -31,7 +26,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical"
+                app:items="@{viewModel.contentsMapData}"/>
 
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

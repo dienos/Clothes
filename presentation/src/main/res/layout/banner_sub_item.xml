@@ -13,7 +13,7 @@
 
         <variable
             name="banner_item"
-            type="com.musinsa.jth.domain.model.remote.Banner" />
+            type="com.musinsa.jth.domain.model.remote.ContentsItem" />
 
         <variable
             name="banner_number"

@@ -81,6 +81,9 @@ dependencies {
 
     implementation(Config.Android.ViewPager.viewPager2)
 
+    implementation(Config.Android.Paging.runTime)
+    testImplementation(Config.Android.Paging.common)
+
     testImplementation( Config.Android.Test.jUnit)
     androidTestImplementation(Config.Android.Test.ext)
     androidTestImplementation(Config.Android.Test.espresso)

@@ -1,52 +1,26 @@
 package com.musinsa.jth.data.datasource
 
 import com.musinsa.jth.data.api.MuSinSaService
-import com.musinsa.jth.data.model.local.ContentsType
-import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.domain.model.remote.Data
+import com.musinsa.jth.domain.model.remote.DataItem
 import javax.inject.Inject
 
 interface ContentsLocalSource {
-    fun getContentsMap(data: Data): Map<String, List<ContentsItem>>
+    fun getContentsMap(data: Data?): Map<String, DataItem>
 }
 
-class ContentsLocalSourceImpl@Inject constructor(
+class ContentsLocalSourceImpl @Inject constructor(
     private val service: MuSinSaService
 ) : ContentsLocalSource {
-    override fun getContentsMap(data: Data): Map<String, List<ContentsItem>> {
-        val map = hashMapOf<String, List<ContentsItem>>()
+    override fun getContentsMap(data: Data?): Map<String, DataItem> {
+        val map = hashMapOf<String, DataItem>()
 
-        data.data.forEach {
-            when (it.contents.type) {
-                ContentsType.BANNER.name -> {
-                    it.contents.banners?.let { banner ->
-                        map.put(it.contents.type, banner)
-                    }
-                }
-
-                ContentsType.GRID.name -> {
-                    it.contents.goods?.let { grid ->
-                        map.put(it.contents.type, grid)
-                    }
-                }
-
-                ContentsType.SCROLL.name -> {
-                    it.contents.goods?.let { goods ->
-                        map.put(it.contents.type, goods)
-                    }
-                }
-
-                ContentsType.STYLE.name -> {
-                    it.contents.styles?.let { goods ->
-                        map.put(it.contents.type, goods)
-                    }
-                }
-                else -> {
-                    it.contents.goods?.let { goods ->
-                        map.put(it.contents.type, goods)
-                    }
-                }
+        data?.let {
+            data.data.forEach { dataItem ->
+                map[dataItem.contents.type] = dataItem
             }
+        }?: run {
+            //service.getContents()
         }
 
         return map

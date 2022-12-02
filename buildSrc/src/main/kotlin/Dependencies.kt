@@ -1,4 +1,4 @@
-object Config {
+    object Config {
     const val applicationId = "com.musinsa.jth"
 
     object Android {
@@ -10,6 +10,13 @@ object Config {
 
         object ViewPager {
             const val viewPager2 = "androidx.viewpager2:viewpager2:1.0.0-alpha04"
+        }
+
+        object Paging {
+            private const val pagingVersion = "3.0.0-alpha11"
+
+            const val runTime = "androidx.paging:paging-runtime:$pagingVersion"
+            const val common = "androidx.paging:paging-common:$pagingVersion"
         }
 
         object KTX {

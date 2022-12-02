@@ -7,18 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.musinsa.jth.domain.model.remote.Banner
+import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.presentation.MuSinSaApplication.Companion.applicationContext
-import com.musinsa.jth.presentation.databinding.BannerItemBinding
+import com.musinsa.jth.presentation.databinding.BannerSubItemBinding
 import com.musinsa.jth.presentation.views.web.Const
 import com.musinsa.jth.presentation.views.web.WebViewActivity
 
-class BannerViewPagerAdapter(private val list: List<Banner>) :
+class BannerViewPagerAdapter(private val list: List<ContentsItem>) :
     RecyclerView.Adapter<BannerViewPagerAdapter.PagerViewHolder>() {
 
-    private lateinit var binding: BannerItemBinding
+    private lateinit var binding: BannerSubItemBinding
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Banner, position: Int) {
+        fun bind(item: ContentsItem, position: Int) {
             binding.bannerItem = item
             binding.bannerNumber = position.plus(1)
         }
@@ -33,7 +34,7 @@ class BannerViewPagerAdapter(private val list: List<Banner>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
-        binding = BannerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = BannerSubItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         binding.bannerTotalCount =  list.size
         binding.adapter = this
         return PagerViewHolder(binding.root)
