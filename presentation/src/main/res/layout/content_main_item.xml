@@ -1,30 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="item"
             type="com.musinsa.jth.domain.model.remote.DataItem" />
+
+        <variable
+            name="adapter"
+            type="com.musinsa.jth.presentation.views.main.ContentsMainAdapter" />
 
         <variable
             name="activity"
             type="com.musinsa.jth.presentation.views.main.MainActivity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/contents_header"
+            android:visibility="@{item.header != null ? View.VISIBLE : View.GONE  }"
+            app:adapter="@{adapter}"
+            app:header="@{item.header}" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_contents"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             app:activity="@{activity}"
-            app:sub_items="@{item}"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            app:sub_items="@{item}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/footer"
+            layout="@layout/contents_footer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="@{item.footer != null ? View.VISIBLE : View.GONE  }"
+            app:activity="@{activity}"
+            app:footer="@{item.footer}" />
+
+    </LinearLayout>
 </layout>

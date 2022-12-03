@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.musinsa.jth.data.model.local.ContentsType
+import com.musinsa.jth.data.repository.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.presentation.MuSinSaApplication
 import com.musinsa.jth.presentation.databinding.ContentSubGoodsItemBinding
@@ -37,6 +37,7 @@ class ContentsSubAdapter(private val type: String) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
         return when (viewType) {
             ContentsType.GRID.intType, ContentsType.SCROLL.intType -> {
                 val bind = ContentSubGoodsItemBinding.inflate(
@@ -45,6 +46,11 @@ class ContentsSubAdapter(private val type: String) :
                     false
                 )
                 bind.adapter = this
+
+                val layoutParams: ViewGroup.LayoutParams = bind.root.layoutParams
+                layoutParams.width = parent.width / 3
+                bind.root.layoutParams = layoutParams
+
                 GoodsViewHolder(bind.root, bind)
             }
 
@@ -55,6 +61,11 @@ class ContentsSubAdapter(private val type: String) :
                     false
                 )
                 bind.adapter = this
+
+                val layoutParams: ViewGroup.LayoutParams = bind.root.layoutParams
+                layoutParams.width = parent.width / 2
+                bind.root.layoutParams = layoutParams
+
                 StyleViewHolder(bind.root, bind)
             }
 
@@ -105,7 +116,7 @@ class ContentsSubAdapter(private val type: String) :
         }
     }
 
-    fun onBannerItemClick(url: String) {
+    fun onContentsItemClick(url: String) {
         val context = MuSinSaApplication.applicationContext()
         val intent = Intent(context, WebViewActivity::class.java)
         intent.putExtra(Const.WEB_URL, url)
@@ -115,11 +126,16 @@ class ContentsSubAdapter(private val type: String) :
 }
 
 object ContentsDiffCallback : DiffUtil.ItemCallback<ContentsItem>() {
+
     override fun areItemsTheSame(oldItem: ContentsItem, newItem: ContentsItem): Boolean {
-        return oldItem === newItem
+        return oldItem.thumbnailURL == newItem.thumbnailURL
     }
 
     override fun areContentsTheSame(oldItem: ContentsItem, newItem: ContentsItem): Boolean {
-        return  oldItem == newItem
+        return oldItem == newItem
+    }
+
+    override fun getChangePayload(oldItem: ContentsItem, newItem: ContentsItem): Any? {
+        return oldItem == newItem
     }
 }

@@ -7,5 +7,5 @@ import com.musinsa.jth.domain.repository.remote.ContentsRepository
 class ConvertContentsListToMapUseCase(private val repository: ContentsRepository) {
     operator fun invoke(
         data: Data
-    ): Map<String, DataItem> = repository.getContentsMap(data)
+    ): Map<String, DataItem> = repository.convertContentsMap(data)
 }

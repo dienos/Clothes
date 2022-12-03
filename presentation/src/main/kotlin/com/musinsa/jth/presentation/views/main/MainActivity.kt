@@ -21,7 +21,9 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
         binding?.viewModel?.getContents()
     }
 
-    override fun initializeUiEvent() {
+    override fun initializeUiEvent() {}
+
+    fun onclickFooter(type : String) {
 
     }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -20,68 +20,79 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:onClick="@{() -> adapter.onBannerItemClick(item.linkURL)}">
+        android:background="@color/white"
+        android:onClick="@{() -> adapter.onContentsItemClick(item.linkURL)}"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_contents_image"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             app:contents_image="@{item.thumbnailURL}" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="5dp">
 
             <TextView
+                android:id="@+id/tv_brand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{item.brandName}"
                 android:textColor="@color/dark_grey"
-                android:textSize="13sp"
-                android:textStyle="bold"/>
+                android:textSize="10sp" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:price="@{item.price}"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="13sp" />
+                    app:price="@{item.price}" />
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:text="@{@string/sale_percent(item.saleRate)}"
-                    android:textColor="@color/darkish_pink"
-                    android:textSize="13sp" />
+                    android:layout_marginBottom="-5dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:padding="2dp"
-                    android:background="@drawable/shape_rectangle_20_soft_blue"
-                    android:text="@string/coupon"
-                    android:visibility="@{item.hasCoupon ? View.VISIBLE : View.GONE}"
-                    android:textColor="@color/white"
-                    android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/tv_sale_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@{@string/sale_percent(item.saleRate)}"
+                        android:textColor="@color/darkish_pink"
+                        android:textSize="10sp" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/shape_rectangle_20_soft_blue"
+                        android:paddingHorizontal="2dp"
+                        android:layout_marginStart="10dp"
+                        android:paddingVertical="2dp"
+                        android:text="@string/coupon"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:visibility="@{item.hasCoupon ? View.VISIBLE : View.GONE}" />
+                </LinearLayout>
+
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 </layout>

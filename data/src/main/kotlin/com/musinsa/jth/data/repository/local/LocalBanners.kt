@@ -1,4 +1,4 @@
-package com.musinsa.jth.data.model.local
+package com.musinsa.jth.data.repository.local
 
 import com.musinsa.jth.domain.model.remote.Banner
 

@@ -1,13 +1,17 @@
 package com.musinsa.jth.presentation.views.main
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.musinsa.jth.data.model.local.ContentsType
+import com.musinsa.jth.data.repository.local.ContentsType
 import com.musinsa.jth.domain.model.remote.DataItem
+import com.musinsa.jth.presentation.MuSinSaApplication
 import com.musinsa.jth.presentation.databinding.BannerMainItemBinding
 import com.musinsa.jth.presentation.databinding.ContentMainItemBinding
+import com.musinsa.jth.presentation.views.web.Const
+import com.musinsa.jth.presentation.views.web.WebViewActivity
 
 class ContentsMainAdapter(private val _activity: MainActivity, private val map: Map<String, DataItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -40,6 +44,8 @@ class ContentsMainAdapter(private val _activity: MainActivity, private val map: 
                     parent,
                     false
                 )
+
+                bind.adapter = this
                 ContentsViewHolder(bind.root, bind)
             }
 
@@ -49,6 +55,7 @@ class ContentsMainAdapter(private val _activity: MainActivity, private val map: 
                     parent,
                     false
                 )
+
                 BannerViewHolder(bind.root, bind)
             }
 
@@ -58,6 +65,8 @@ class ContentsMainAdapter(private val _activity: MainActivity, private val map: 
                     parent,
                     false
                 )
+
+                bind.adapter = this
                 ContentsViewHolder(bind.root, bind)
             }
         }
@@ -109,4 +118,12 @@ class ContentsMainAdapter(private val _activity: MainActivity, private val map: 
     }
 
     override fun getItemCount(): Int = contentsKeys.size
+
+    fun onContentsItemClick(url: String) {
+        val context = MuSinSaApplication.applicationContext()
+        val intent = Intent(context, WebViewActivity::class.java)
+        intent.putExtra(Const.WEB_URL, url)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
 }

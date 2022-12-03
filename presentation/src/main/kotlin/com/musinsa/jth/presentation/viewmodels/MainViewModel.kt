@@ -3,13 +3,19 @@ package com.musinsa.jth.presentation.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.musinsa.jth.data.repository.local.GridContentsPagingSource
+import com.musinsa.jth.data.repository.local.StyleContentsPagingRepository
+import com.musinsa.jth.data.repository.local.ContentsType
 import com.musinsa.jth.domain.model.remote.Banner
 import com.musinsa.jth.domain.model.remote.ContentsItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.musinsa.jth.domain.model.remote.Data
 import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.domain.usecase.ConvertContentsListToMapUseCase
+import com.musinsa.jth.domain.usecase.GetContentsByPageNumberUseCase
 import com.musinsa.jth.domain.usecase.GetContentsByPagingUseCase
 import com.musinsa.jth.domain.usecase.GetContentsUseCase
 import kotlinx.coroutines.flow.Flow
@@ -19,7 +25,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val getContentsUseCase: GetContentsUseCase,
     private val convertContentsListToMapUseCase: ConvertContentsListToMapUseCase,
-    private val getContentsByPagingUseCase: GetContentsByPagingUseCase
+    private val getContentsByPagingUseCase: GetContentsByPagingUseCase,
 ) : BaseViewModel() {
     private var _contentsData = MutableLiveData<Data>()
     val contentsData: LiveData<Data> = _contentsData
@@ -42,6 +48,6 @@ class MainViewModel @Inject constructor(
         })
     }
 
-    fun getContentsByType(type : String): Flow<PagingData<ContentsItem>> =
+    fun getContentsByType(type: String): Flow<PagingData<ContentsItem>> =
         getContentsByPagingUseCase(type)
 }

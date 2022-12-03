@@ -1,12 +1,12 @@
-package com.musinsa.jth.data.datasource.local
+package com.musinsa.jth.data.repository.local
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.musinsa.jth.data.model.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
+import com.musinsa.jth.domain.repository.remote.ContentsRepository
 import java.lang.Exception
 
-class StyleContentsPagingSource(private val localSource: ContentsLocalSourceImpl) :
+class StyleContentsPagingRepository(private val repository: ContentsRepository) :
     PagingSource<Int, ContentsItem>() {
     override fun getRefreshKey(state: PagingState<Int, ContentsItem>): Int? {
         return state.anchorPosition?.let { position ->
@@ -17,17 +17,22 @@ class StyleContentsPagingSource(private val localSource: ContentsLocalSourceImpl
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ContentsItem> {
         val page = params.key ?: 1
-        val list = localSource.getContentsByPageNumber(ContentsType.STYLE.name, page)
+
+        val result = repository.getContentsByPageNumber(
+            repository.getContentsMap(),
+            ContentsType.STYLE.name,
+            page
+        )
 
         return try {
             LoadResult.Page(
-                data = list,
+                data = result,
                 prevKey = if (page == 1) {
                     null
                 } else {
                     page - 1
                 },
-                nextKey = if (list.isEmpty()) {
+                nextKey = if (result.isEmpty()) {
                     null
                 } else {
                     page + params.loadSize

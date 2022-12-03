@@ -8,7 +8,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface ContentsRepository {
     suspend fun getContents(): Data
-    fun getContentsMap(data: Data): Map<String, DataItem>
-    fun getContentsByPaging(type : String): Flow<PagingData<ContentsItem>>
-    fun getContentsByIndex(type: String, index: Int): List<ContentsItem>
+    suspend fun getContentsMap(): Map<String, DataItem>
+    fun convertContentsMap(data: Data): Map<String, DataItem>
+    fun getContentsByPaging(type: String): Flow<PagingData<ContentsItem>>
+    fun getContentsByPageNumber(map: Map<String, DataItem>, type: String, index: Int): List<ContentsItem>
 }
