@@ -12,15 +12,6 @@
             const val viewPager2 = "androidx.viewpager2:viewpager2:1.0.0-alpha04"
         }
 
-        object Paging {
-            private const val pagingVersion = "3.1.1"
-
-            const val runTime = "androidx.paging:paging-runtime:$pagingVersion"
-            const val common = "androidx.paging:paging-common:$pagingVersion"
-            const val ktx =  "androidx.paging:paging-common-ktx:$pagingVersion"
-
-        }
-
         object KTX {
             const val activity = "androidx.activity:activity-ktx:1.1.0"
             const val fragment = "androidx.fragment:fragment-ktx:1.2.5"

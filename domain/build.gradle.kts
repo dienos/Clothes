@@ -30,7 +30,6 @@ android {
     dependencies {
         implementation(Config.Kotlin.Coroutine.coroutines)
         testImplementation(Config.Kotlin.Coroutine.coroutineTest)
-        implementation(Config.Android.Paging.common)
     }
 }
 

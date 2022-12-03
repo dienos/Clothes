@@ -11,6 +11,10 @@
             type="com.musinsa.jth.presentation.views.main.MainActivity" />
 
         <variable
+            name="type"
+            type="String" />
+
+        <variable
             name="footer"
             type="com.musinsa.jth.domain.model.remote.Footer" />
     </data>
@@ -18,7 +22,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> activity.onclickFooter(footer.type)}"
+        android:onClick="@{() -> activity.onclickFooter(type, footer.type)}"
         android:background="@drawable/shape_rectangle_12_dark_gray"
         android:padding="10dp">
 

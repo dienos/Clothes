@@ -4,26 +4,46 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.musinsa.jth.data.repository.local.ContentsType
+import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.domain.model.remote.DataItem
+import com.musinsa.jth.domain.model.remote.Footer
+import com.musinsa.jth.domain.model.remote.Header
 import com.musinsa.jth.presentation.MuSinSaApplication
 import com.musinsa.jth.presentation.databinding.BannerMainItemBinding
 import com.musinsa.jth.presentation.databinding.ContentMainItemBinding
 import com.musinsa.jth.presentation.views.web.Const
 import com.musinsa.jth.presentation.views.web.WebViewActivity
 
-class ContentsMainAdapter(private val _activity: MainActivity, private val map: Map<String, DataItem>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val contentsKeys: List<String> = map.keys.toList()
+class ContentsMainAdapter(
+    private val _activity: MainActivity,
+    private val originalMap: Map<String, DataItem>,
+    private val currentMap: Map<String, List<ContentsItem>>
+) : ListAdapter<List<ContentsItem>, RecyclerView.ViewHolder>(DiffCallback) {
+    private val contentsKeys: List<String> = currentMap.keys.toList()
 
     inner class ContentsViewHolder(itemView: View, _bind: ContentMainItemBinding) :
         RecyclerView.ViewHolder(itemView) {
         private val bind = _bind
 
-        fun bind(item: DataItem?) {
+        fun bind(_item: List<ContentsItem>?, _header: Header?, _footer: Footer?, _type : String?) {
             bind.activity = _activity
-            bind.item = item
+            bind.item = _item
+
+            _type?.let {
+                bind.contentsType = it
+            }
+
+            _header?.let {
+                bind.contentsHeader = it
+            }
+
+            _footer?.let {
+                bind.contentsFooter = it
+            }
         }
     }
 
@@ -76,21 +96,32 @@ class ContentsMainAdapter(private val _activity: MainActivity, private val map: 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ContentsViewHolder -> {
-                holder.bind(map[contentsKeys[position]])
+                holder.bind(
+                    currentMap[contentsKeys[position]],
+                    originalMap[contentsKeys[position]]?.header,
+                    originalMap[contentsKeys[position]]?.footer,
+                    originalMap[contentsKeys[position]]?.contents?.type
+
+                )
             }
 
             is BannerViewHolder -> {
-                holder.bind(map[contentsKeys[position]])
+                holder.bind(originalMap[contentsKeys[position]])
             }
 
             else -> {
-                (holder as ContentsViewHolder).bind(map[contentsKeys[position]])
+                (holder as ContentsViewHolder).bind(
+                    currentMap[contentsKeys[position]],
+                    originalMap[contentsKeys[position]]?.header,
+                    originalMap[contentsKeys[position]]?.footer,
+                    originalMap[contentsKeys[position]]?.contents?.type
+                )
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (map[contentsKeys[position]]?.contents?.type) {
+        return when (originalMap[contentsKeys[position]]?.contents?.type) {
             ContentsType.BANNER.name -> {
                 ContentsType.BANNER.intType
             }
@@ -125,5 +156,21 @@ class ContentsMainAdapter(private val _activity: MainActivity, private val map: 
         intent.putExtra(Const.WEB_URL, url)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
+    }
+}
+
+object DiffCallback : DiffUtil.ItemCallback<List<ContentsItem>>() {
+    override fun areItemsTheSame(
+        oldItem: List<ContentsItem>,
+        newItem: List<ContentsItem>
+    ): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(
+        oldItem: List<ContentsItem>,
+        newItem: List<ContentsItem>
+    ): Boolean {
+        return oldItem == newItem
     }
 }

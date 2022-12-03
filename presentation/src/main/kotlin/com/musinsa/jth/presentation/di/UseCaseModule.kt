@@ -5,10 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import com.musinsa.jth.domain.repository.remote.ContentsRepository
-import com.musinsa.jth.domain.usecase.ConvertContentsListToMapUseCase
-import com.musinsa.jth.domain.usecase.GetContentsByPageNumberUseCase
-import com.musinsa.jth.domain.usecase.GetContentsByPagingUseCase
-import com.musinsa.jth.domain.usecase.GetContentsUseCase
+import com.musinsa.jth.domain.usecase.*
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -25,14 +22,18 @@ object UseCaseModule {
     }
 
     @Provides
-    fun providesGetContentsByPagingUseCase(repository: ContentsRepository): GetContentsByPagingUseCase {
-        return GetContentsByPagingUseCase(repository)
-    }
-
-    @Provides
     fun providesGetContentsMapUseCase(repository: ContentsRepository): GetContentsByPageNumberUseCase {
         return GetContentsByPageNumberUseCase(repository)
     }
 
+    @Provides
+    fun providesGetContentsByTypeUseCase(repository: ContentsRepository): GetContentsByTypeUseCase {
+        return GetContentsByTypeUseCase(repository)
+    }
+
+    @Provides
+    fun providesInitContentsMapUseCase(repository: ContentsRepository): GetFirstContentsItemListMapUseCase {
+        return GetFirstContentsItemListMapUseCase(repository)
+    }
 
 }

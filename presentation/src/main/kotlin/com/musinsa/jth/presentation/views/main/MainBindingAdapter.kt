@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.musinsa.jth.data.repository.local.ContentsType
+import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.presentation.R
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
@@ -22,44 +24,48 @@ fun setBanners(view: ViewPager2, items: DataItem?) {
     }
 }
 
-@BindingAdapter(value = ["activity", "items"])
-fun setMainContents(view: RecyclerView, activity: MainActivity, map: Map<String, DataItem>?) {
-    map?.let {
+@BindingAdapter(value = ["activity", "original_map", "current_map"])
+fun setMainContents(
+    view: RecyclerView,
+    activity: MainActivity,
+    originalMap: Map<String, DataItem>?,
+    currentMap: Map<String, List<ContentsItem>>?
+) {
+    currentMap?.let {
         val layoutManager = LinearLayoutManager(view.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         view.layoutManager = layoutManager
-        view.adapter = ContentsMainAdapter(activity, map)
+        view.adapter =
+            ContentsMainAdapter(activity, originalMap = originalMap!!, currentMap = currentMap)
     }
 }
 
-@BindingAdapter(value = ["activity", "sub_items"])
-fun setSubContents(view: RecyclerView, activity: MainActivity, item: DataItem?) {
+@BindingAdapter(value = ["contents_type", "sub_items"])
+fun setSubContents(view: RecyclerView, type: String, item: List<ContentsItem>?) {
     item?.let {
         var layoutManager = LinearLayoutManager(view.context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
 
-        when (it.contents.type) {
+        when (type) {
             ContentsType.SCROLL.name -> {
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                view.layoutManager = layoutManager
             }
 
             ContentsType.GRID.name -> {
                 layoutManager = GridLayoutManager(view.context, 3)
+                view.layoutManager = layoutManager
+                view.adapter = ContentsSubAdapter(type)
             }
 
             ContentsType.STYLE.name -> {
                 layoutManager = GridLayoutManager(view.context, 2)
+                view.layoutManager = layoutManager
             }
         }
 
-        view.layoutManager = layoutManager
-        view.adapter = ContentsSubAdapter(item.contents.type)
-
-        activity.lifecycleScope.launch {
-            activity.viewModel.getContentsByType(it.contents.type).collectLatest { data ->
-                (view.adapter as ContentsSubAdapter).submitData(data)
-            }
-        }
+        view.adapter = ContentsSubAdapter(type)
+        (view.adapter as ContentsSubAdapter).submitList(item)
     }
 }
 

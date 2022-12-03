@@ -4,8 +4,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.musinsa.jth.data.repository.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
@@ -16,7 +16,7 @@ import com.musinsa.jth.presentation.views.web.Const
 import com.musinsa.jth.presentation.views.web.WebViewActivity
 
 class ContentsSubAdapter(private val type: String) :
-    PagingDataAdapter<ContentsItem, RecyclerView.ViewHolder>(ContentsDiffCallback) {
+    ListAdapter<ContentsItem, RecyclerView.ViewHolder>(ContentsDiffCallback) {
 
     inner class GoodsViewHolder(itemView: View, _bind: ContentSubGoodsItemBinding) :
         RecyclerView.ViewHolder(itemView) {
@@ -132,7 +132,7 @@ object ContentsDiffCallback : DiffUtil.ItemCallback<ContentsItem>() {
     }
 
     override fun areContentsTheSame(oldItem: ContentsItem, newItem: ContentsItem): Boolean {
-        return oldItem == newItem
+        return oldItem.equals(newItem)
     }
 
     override fun getChangePayload(oldItem: ContentsItem, newItem: ContentsItem): Any? {

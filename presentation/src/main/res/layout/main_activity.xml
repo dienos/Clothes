@@ -32,7 +32,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:activity="@{activity}"
-                app:items="@{viewModel.contentsMapData}"/>
+                app:current_map="@{viewModel.currentContentsMapData}"
+                app:original_map="@{viewModel.originalContentsMapData}"
+                />
 
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

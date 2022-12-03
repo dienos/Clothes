@@ -1,6 +1,7 @@
 package com.musinsa.jth.presentation.views.main
 
 import androidx.activity.viewModels
+import com.musinsa.jth.data.repository.local.ContentsFooterType
 import com.musinsa.jth.presentation.R
 import com.musinsa.jth.presentation.databinding.MainActivityBinding
 import com.musinsa.jth.presentation.viewmodels.MainViewModel
@@ -23,7 +24,11 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
 
     override fun initializeUiEvent() {}
 
-    fun onclickFooter(type : String) {
-
+    fun onclickFooter(contentsType :String,  footerType : String) {
+        when(footerType) {
+            ContentsFooterType.MORE.name -> {
+                //binding?.viewModel?.getContentsByType(contentsType)
+            }
+        }
     }
 }

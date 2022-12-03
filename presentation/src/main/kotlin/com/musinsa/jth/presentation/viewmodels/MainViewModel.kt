@@ -3,43 +3,29 @@ package com.musinsa.jth.presentation.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import com.musinsa.jth.data.repository.local.GridContentsPagingSource
-import com.musinsa.jth.data.repository.local.StyleContentsPagingRepository
-import com.musinsa.jth.data.repository.local.ContentsType
-import com.musinsa.jth.domain.model.remote.Banner
 import com.musinsa.jth.domain.model.remote.ContentsItem
 import dagger.hilt.android.lifecycle.HiltViewModel
-import com.musinsa.jth.domain.model.remote.Data
 import com.musinsa.jth.domain.model.remote.DataItem
-import com.musinsa.jth.domain.usecase.ConvertContentsListToMapUseCase
-import com.musinsa.jth.domain.usecase.GetContentsByPageNumberUseCase
-import com.musinsa.jth.domain.usecase.GetContentsByPagingUseCase
-import com.musinsa.jth.domain.usecase.GetContentsUseCase
-import kotlinx.coroutines.flow.Flow
+import com.musinsa.jth.domain.usecase.*
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getContentsUseCase: GetContentsUseCase,
     private val convertContentsListToMapUseCase: ConvertContentsListToMapUseCase,
-    private val getContentsByPagingUseCase: GetContentsByPagingUseCase,
+    private val getFirstContentsItemListMapUseCase: GetFirstContentsItemListMapUseCase,
 ) : BaseViewModel() {
-    private var _contentsData = MutableLiveData<Data>()
-    val contentsData: LiveData<Data> = _contentsData
 
-    private var _bannersData = MutableLiveData<List<Banner>>()
-    val bannersData: LiveData<List<Banner>> = _bannersData
+    private var _originalContentsMapData = MutableLiveData<Map<String, DataItem>>()
+    val originalContentsMapData: LiveData<Map<String, DataItem>> = _originalContentsMapData
 
-    private var _contentsMapData = MutableLiveData<Map<String, DataItem>>()
-    val contentsMapData: LiveData<Map<String, DataItem>> = _contentsMapData
+    private var _currentContentsMapData = MutableLiveData<Map<String, List<ContentsItem>>>()
+    val currentContentsMapData: LiveData<Map<String, List<ContentsItem>>> = _currentContentsMapData
 
     fun getContents() {
         getContentsUseCase(scope = viewModelScope, { result ->
-            _contentsData.value = result
-            _contentsMapData.value = convertContentsListToMapUseCase(result)
+            _originalContentsMapData.value = convertContentsListToMapUseCase(result)
+            _currentContentsMapData.value = getFirstContentsItemListMapUseCase(result)
 
             updateProgress(false)
         }, {
@@ -47,7 +33,4 @@ class MainViewModel @Inject constructor(
             updateProgress(false)
         })
     }
-
-    fun getContentsByType(type: String): Flow<PagingData<ContentsItem>> =
-        getContentsByPagingUseCase(type)
 }

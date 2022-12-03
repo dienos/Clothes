@@ -7,9 +7,25 @@
 
         <import type="android.view.View" />
 
+        <import type="java.util.List" />
+
+        <import type="com.musinsa.jth.domain.model.remote.ContentsItem" />
+
         <variable
             name="item"
-            type="com.musinsa.jth.domain.model.remote.DataItem" />
+            type="List&lt;ContentsItem&gt;" />
+
+        <variable
+            name="contents_type"
+            type="String" />
+
+        <variable
+            name="contents_header"
+            type="com.musinsa.jth.domain.model.remote.Header" />
+
+        <variable
+            name="contents_footer"
+            type="com.musinsa.jth.domain.model.remote.Footer" />
 
         <variable
             name="adapter"
@@ -28,30 +44,30 @@
         <include
             android:id="@+id/header"
             layout="@layout/contents_header"
-            android:visibility="@{item.header != null ? View.VISIBLE : View.GONE  }"
+            android:visibility="@{header != null ? View.VISIBLE : View.GONE  }"
             app:adapter="@{adapter}"
-            app:header="@{item.header}" />
+            app:header="@{contents_header}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_contents"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:activity="@{activity}"
+            app:contents_type="@{contents_type}"
             app:layout_constraintTop_toBottomOf="@+id/header"
             app:sub_items="@{item}" />
 
         <include
-            android:id="@+id/footer"
             layout="@layout/contents_footer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_gravity="center_horizontal"
-            android:visibility="@{item.footer != null ? View.VISIBLE : View.GONE  }"
+            android:visibility="@{contents_footer != null ? View.VISIBLE : View.GONE  }"
             app:activity="@{activity}"
-            app:footer="@{item.footer}" />
+            app:type="@{contents_type}"
+            app:footer="@{contents_footer}"/>
 
     </LinearLayout>
 </layout>
