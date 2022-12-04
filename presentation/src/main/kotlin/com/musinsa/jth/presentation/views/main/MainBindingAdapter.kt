@@ -58,7 +58,7 @@ fun setMainContents(
                 currentList?.let {
                     val adapter = view.adapter as ContentsMainAdapter
                     adapter.currentMap = currentMap
-                    (view.adapter as ContentsMainAdapter).submitList(it)
+                    adapter.submitList(it)
                 }
             } ?: run {
                 val layoutManager =
@@ -82,8 +82,11 @@ fun setMainContents(
 fun setSubContents(view: RecyclerView, type: String, item: List<ContentsItem>?) {
     item?.let {
         view.adapter?.apply {
-            (view.adapter as ContentsSubAdapter).submitList(item.toMutableList()) {
-                view.scrollToPosition(0)
+            val adapter = (view.adapter as ContentsSubAdapter)
+            adapter.submitList(item.toMutableList()) {
+                if (type == ContentsType.STYLE.name) {
+                    view.scrollToPosition(adapter.itemCount - 1)
+                }
             }
         } ?: run {
             var layoutManager = LinearLayoutManager(view.context)
@@ -106,11 +109,12 @@ fun setSubContents(view: RecyclerView, type: String, item: List<ContentsItem>?) 
                 }
             }
 
-            view.adapter = ContentsSubAdapter(type)
-            (view.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
-            view.itemAnimator?.changeDuration = 0
-            (view.adapter as ContentsSubAdapter).submitList(item.toMutableList()) {
-                view.scrollToPosition(0)
+            val adapter = ContentsSubAdapter(type)
+            view.adapter = adapter
+            adapter.submitList(item.toMutableList()) {
+                if (type == ContentsType.STYLE.name) {
+                    view.scrollToPosition(adapter.itemCount - 1)
+                }
             }
         }
     }

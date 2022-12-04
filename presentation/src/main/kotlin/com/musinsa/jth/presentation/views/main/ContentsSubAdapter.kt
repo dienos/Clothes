@@ -42,7 +42,7 @@ class ContentsSubAdapter(private val type: String) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            ContentsType.GRID.intType, ContentsType.SCROLL.intType -> {
+             ContentsType.GRID.intType, ContentsType.SCROLL.intType -> {
                 val bind = ContentSubGoodsItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,

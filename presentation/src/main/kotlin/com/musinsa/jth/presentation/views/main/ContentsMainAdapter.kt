@@ -23,13 +23,24 @@ class ContentsMainAdapter(
     private val originalMap: Map<String, DataItem>,
     var currentMap: Map<String, List<ContentsItem>>
 ) : ListAdapter<List<ContentsItem>, RecyclerView.ViewHolder>(DiffCallback) {
+
+    init {
+        setHasStableIds(true)
+    }
+
     private val contentsKeys: List<String> = currentMap.keys.toList()
 
     inner class ContentsViewHolder(itemView: View, _bind: ContentMainItemBinding) :
         RecyclerView.ViewHolder(itemView) {
         private val bind = _bind
 
-        fun bind(_item: List<ContentsItem>?, _header: Header?, _footer: Footer?, _type: String?) {
+        fun bind(
+            _item: List<ContentsItem>?,
+            _originalItem: List<ContentsItem>?,
+            _header: Header?,
+            _footer: Footer?,
+            _type: String?
+        ) {
             bind.activity = _activity
             bind.item = _item
 
@@ -44,6 +55,8 @@ class ContentsMainAdapter(
             _footer?.let {
                 bind.contentsFooter = it
             }
+
+            bind.footerVisible = (_type == ContentsType.SCROLL.name ) || (_originalItem?.size != _item?.size)
         }
     }
 
@@ -97,8 +110,24 @@ class ContentsMainAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ContentsViewHolder -> {
+                val originalItem: List<ContentsItem> =
+                    when (originalMap[contentsKeys[position]]?.contents?.type) {
+                        ContentsType.STYLE.name -> {
+                            originalMap[contentsKeys[position]]?.contents?.styles!!
+                        }
+
+                        ContentsType.GRID.name, ContentsType.SCROLL.name -> {
+                            originalMap[contentsKeys[position]]?.contents?.goods!!
+                        }
+
+                        else -> {
+                            originalMap[contentsKeys[position]]?.contents?.goods!!
+                        }
+                    }
+
                 holder.bind(
                     getItem(position),
+                    originalItem,
                     originalMap[contentsKeys[position]]?.header,
                     originalMap[contentsKeys[position]]?.footer,
                     originalMap[contentsKeys[position]]?.contents?.type
@@ -106,12 +135,13 @@ class ContentsMainAdapter(
             }
 
             is BannerViewHolder -> {
-                holder.bind(originalMap[contentsKeys[position]]?.contents?.banners)
+                holder.bind(getItem(position))
             }
 
             else -> {
                 (holder as ContentsViewHolder).bind(
                     getItem(position),
+                    originalMap[contentsKeys[position]]?.contents?.goods,
                     originalMap[contentsKeys[position]]?.header,
                     originalMap[contentsKeys[position]]?.footer,
                     originalMap[contentsKeys[position]]?.contents?.type

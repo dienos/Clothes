@@ -20,6 +20,10 @@
             type="String" />
 
         <variable
+            name="footer_visible"
+            type="boolean" />
+
+        <variable
             name="contents_header"
             type="com.musinsa.jth.domain.model.remote.Header" />
 
@@ -44,7 +48,7 @@
         <include
             android:id="@+id/header"
             layout="@layout/contents_header"
-            android:visibility="@{header != null ? View.VISIBLE : View.GONE  }"
+            android:visibility="@{contents_header != null ? View.VISIBLE : View.GONE  }"
             app:adapter="@{adapter}"
             app:header="@{contents_header}" />
 
@@ -64,10 +68,11 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:visibility="@{contents_footer != null ? View.VISIBLE : View.GONE  }"
             app:activity="@{activity}"
             app:type="@{contents_type}"
-            app:footer="@{contents_footer}"/>
+            app:footer="@{contents_footer}"
+            android:visibility="@{footer_visible ? View.VISIBLE : View.GONE}"
+            />
 
     </LinearLayout>
 </layout>
