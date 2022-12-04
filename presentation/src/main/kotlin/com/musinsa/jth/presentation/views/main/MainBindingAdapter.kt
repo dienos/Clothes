@@ -1,71 +1,114 @@
 package com.musinsa.jth.presentation.views.main
 
+import android.content.Context
+import android.util.AttributeSet
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 import androidx.viewpager2.widget.ViewPager2
 import com.musinsa.jth.data.repository.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.presentation.R
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import java.text.DecimalFormat
 
+
 @BindingAdapter(value = ["banner_items"])
-fun setBanners(view: ViewPager2, items: DataItem?) {
-    items?.contents?.banners?.let {
+fun setBanners(view: ViewPager2, items: List<ContentsItem>?) {
+    items?.let {
         view.adapter = BannerViewPagerAdapter(it)
         view.orientation = ViewPager2.ORIENTATION_HORIZONTAL
     }
 }
 
-@BindingAdapter(value = ["activity", "original_map", "current_map"])
+class LinearLayoutManagerWrapper : LinearLayoutManager {
+    constructor(context: Context) : super(context) {}
+    constructor(context: Context, orientation: Int, reverseLayout: Boolean) : super(
+        context,
+        orientation,
+        reverseLayout
+    ) {
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes
+    ) {
+    }
+
+    override fun supportsPredictiveItemAnimations(): Boolean {
+        return false
+    }
+}
+
+@BindingAdapter(value = ["activity", "original_map", "current_map", "current_list"])
 fun setMainContents(
     view: RecyclerView,
     activity: MainActivity,
     originalMap: Map<String, DataItem>?,
-    currentMap: Map<String, List<ContentsItem>>?
+    currentMap: Map<String, List<ContentsItem>>?,
+    currentList: List<List<ContentsItem>>?
 ) {
     currentMap?.let {
-        val layoutManager = LinearLayoutManager(view.context)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        view.layoutManager = layoutManager
-        view.adapter =
-            ContentsMainAdapter(activity, originalMap = originalMap!!, currentMap = currentMap)
+        originalMap?.let {
+            view.adapter?.apply {
+                currentList?.let {
+                    (view.adapter as ContentsMainAdapter).submitList(it)
+                }
+            } ?: run {
+                val layoutManager =
+                    LinearLayoutManagerWrapper(view.context, LinearLayoutManager.VERTICAL, false)
+                layoutManager.orientation = LinearLayoutManager.VERTICAL
+                view.layoutManager = layoutManager
+                view.adapter =
+                    ContentsMainAdapter(
+                        activity,
+                        originalMap = originalMap,
+                        currentMap = currentMap
+                    )
+            }
+        }
     }
 }
 
 @BindingAdapter(value = ["contents_type", "sub_items"])
 fun setSubContents(view: RecyclerView, type: String, item: List<ContentsItem>?) {
     item?.let {
-        var layoutManager = LinearLayoutManager(view.context)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        view.adapter?.apply {
+            (view.adapter as ContentsSubAdapter).submitList(item.toMutableList()) {
+                view.scrollToPosition(0)
+            }
+        }?: run {
+            var layoutManager = LinearLayoutManager(view.context)
+            layoutManager.orientation = LinearLayoutManager.VERTICAL
 
-        when (type) {
-            ContentsType.SCROLL.name -> {
-                layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-                view.layoutManager = layoutManager
+            when (type) {
+                ContentsType.SCROLL.name -> {
+                    layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                    view.layoutManager = layoutManager
+                }
+
+                ContentsType.GRID.name -> {
+                    layoutManager = GridLayoutManager(view.context, 3)
+                    view.layoutManager = layoutManager
+                }
+
+                ContentsType.STYLE.name -> {
+                    layoutManager = GridLayoutManager(view.context, 2)
+                    view.layoutManager = layoutManager
+                }
             }
 
-            ContentsType.GRID.name -> {
-                layoutManager = GridLayoutManager(view.context, 3)
-                view.layoutManager = layoutManager
-                view.adapter = ContentsSubAdapter(type)
-            }
-
-            ContentsType.STYLE.name -> {
-                layoutManager = GridLayoutManager(view.context, 2)
-                view.layoutManager = layoutManager
+            view.adapter = ContentsSubAdapter(type)
+            (view.itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
+            view.itemAnimator?.changeDuration = 0
+            (view.adapter as ContentsSubAdapter).submitList(item.toMutableList()) {
+                view.scrollToPosition(0)
             }
         }
-
-        view.adapter = ContentsSubAdapter(type)
-        (view.adapter as ContentsSubAdapter).submitList(item)
     }
 }
 

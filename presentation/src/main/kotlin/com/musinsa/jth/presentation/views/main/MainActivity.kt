@@ -27,7 +27,7 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
     fun onclickFooter(contentsType :String,  footerType : String) {
         when(footerType) {
             ContentsFooterType.MORE.name -> {
-                //binding?.viewModel?.getContentsByType(contentsType)
+                binding?.viewModel?.getNextContents(contentsType)
             }
         }
     }

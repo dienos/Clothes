@@ -20,6 +20,17 @@ class ContentsRepositoryImpl @Inject constructor(
     override fun getFirstContentsItemListMap(data: Data?): Map<String, List<ContentsItem>> =
         localSource.getFirstContentsItemListMap(data)
 
+    override fun getNextContentsItemListMap(
+        type: String,
+        originalMap: Map<String, DataItem>,
+        currentMap: Map<String, List<ContentsItem>>
+    ): Map<String, List<ContentsItem>> =
+        localSource.getNextContentsItemListMap(type, originalMap, currentMap)
+
+    override fun getNextContentsItemList(currentMap: Map<String, List<ContentsItem>>): List<List<ContentsItem>> {
+        return localSource.getNextContentsItemList(currentMap)
+    }
+
     override suspend fun getContentsMap(): Map<String, DataItem> {
         val result = remoteSource.getContents()
         return localSource.convertContentsMap(result)

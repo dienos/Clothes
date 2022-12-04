@@ -51,8 +51,10 @@ class ContentsMainAdapter(
         RecyclerView.ViewHolder(itemView) {
         private val bind = _bind
 
-        fun bind(item: DataItem?) {
-            bind.item = item
+        fun bind(_item: List<ContentsItem>?) {
+            _item?.let {
+                bind.item = it
+            }
         }
     }
 
@@ -90,7 +92,6 @@ class ContentsMainAdapter(
                 ContentsViewHolder(bind.root, bind)
             }
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -101,12 +102,11 @@ class ContentsMainAdapter(
                     originalMap[contentsKeys[position]]?.header,
                     originalMap[contentsKeys[position]]?.footer,
                     originalMap[contentsKeys[position]]?.contents?.type
-
                 )
             }
 
             is BannerViewHolder -> {
-                holder.bind(originalMap[contentsKeys[position]])
+                holder.bind(originalMap[contentsKeys[position]]?.contents?.banners)
             }
 
             else -> {

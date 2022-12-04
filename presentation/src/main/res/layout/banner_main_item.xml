@@ -4,9 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="java.util.List" />
+
+        <import type="com.musinsa.jth.domain.model.remote.ContentsItem" />
+
         <variable
             name="item"
-            type="com.musinsa.jth.domain.model.remote.DataItem" />
+            type="List&lt;ContentsItem&gt;" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

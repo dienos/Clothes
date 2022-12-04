@@ -36,8 +36,11 @@ class ContentsSubAdapter(private val type: String) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ContentsType.GRID.intType, ContentsType.SCROLL.intType -> {
                 val bind = ContentSubGoodsItemBinding.inflate(
@@ -83,15 +86,13 @@ class ContentsSubAdapter(private val type: String) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        getItem(position)?.let { item ->
-            when (holder) {
-                is GoodsViewHolder -> {
-                    holder.bind(item)
-                }
+        when (holder) {
+            is GoodsViewHolder -> {
+                holder.bind(getItem(position))
+            }
 
-                is StyleViewHolder -> {
-                    holder.bind(item)
-                }
+            is StyleViewHolder -> {
+                holder.bind(getItem(position))
             }
         }
     }
@@ -128,14 +129,10 @@ class ContentsSubAdapter(private val type: String) :
 object ContentsDiffCallback : DiffUtil.ItemCallback<ContentsItem>() {
 
     override fun areItemsTheSame(oldItem: ContentsItem, newItem: ContentsItem): Boolean {
-        return oldItem.thumbnailURL == newItem.thumbnailURL
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: ContentsItem, newItem: ContentsItem): Boolean {
-        return oldItem.equals(newItem)
-    }
-
-    override fun getChangePayload(oldItem: ContentsItem, newItem: ContentsItem): Any? {
         return oldItem == newItem
     }
 }

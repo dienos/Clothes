@@ -32,6 +32,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:activity="@{activity}"
+                app:current_list="@{viewModel.currentContentsListData}"
                 app:current_map="@{viewModel.currentContentsMapData}"
                 app:original_map="@{viewModel.originalContentsMapData}"
                 />

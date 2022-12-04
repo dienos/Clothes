@@ -9,6 +9,21 @@ interface ContentsRepository {
     suspend fun getContentsMap(): Map<String, DataItem>
     fun convertContentsMap(data: Data): Map<String, DataItem>
     fun getFirstContentsItemListMap(data: Data?): Map<String, List<ContentsItem>>
-    fun getContentsByPageNumber(map: Map<String, DataItem>, type: String, index: Int): List<ContentsItem>
+    fun getNextContentsItemListMap(
+        type: String,
+        originalMap: Map<String, DataItem>,
+        currentMap: Map<String, List<ContentsItem>>
+    ): Map<String, List<ContentsItem>>
+
+    fun getNextContentsItemList(
+        currentMap: Map<String, List<ContentsItem>>
+    ): List<List<ContentsItem>>
+
+    fun getContentsByPageNumber(
+        map: Map<String, DataItem>,
+        type: String,
+        index: Int
+    ): List<ContentsItem>
+
     fun getContentsByType(map: Map<String, DataItem>, type: String): DataItem?
 }

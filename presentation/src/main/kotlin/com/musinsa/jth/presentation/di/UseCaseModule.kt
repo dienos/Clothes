@@ -36,4 +36,14 @@ object UseCaseModule {
         return GetFirstContentsItemListMapUseCase(repository)
     }
 
+    @Provides
+    fun providesGetNextContentsItemListMapUseCase(repository: ContentsRepository): GetNextContentsItemListMapUseCase {
+        return GetNextContentsItemListMapUseCase(repository)
+    }
+
+    @Provides
+    fun providesGetNextContentsItemListUseCase(repository: ContentsRepository): GetNextContentsItemListUseCase {
+        return GetNextContentsItemListUseCase(repository)
+    }
+
 }
