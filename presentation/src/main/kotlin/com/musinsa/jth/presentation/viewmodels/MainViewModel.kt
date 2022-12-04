@@ -33,6 +33,8 @@ class MainViewModel @Inject constructor(
     val currentContentsListData: LiveData<List<List<ContentsItem>>> = _currentContentsListData
 
     fun getContents() {
+        updateProgress(true)
+
         getContentsUseCase(scope = viewModelScope, { result ->
             _originalContentsMapData.value = convertContentsListToMapUseCase(result)
             _currentContentsMapData.value = getFirstContentsItemListMapUseCase(result)
@@ -49,6 +51,8 @@ class MainViewModel @Inject constructor(
     }
 
     fun getNextContents(type: String) {
+        updateProgress(true)
+
         originalContentsMapData.value?.let { originalMap ->
             currentContentsMapData.value?.let { currentMap ->
                 val map = getNextContentsItemListMapUseCase(
@@ -62,14 +66,20 @@ class MainViewModel @Inject constructor(
                 _changeType.value = type
             }
         }
+
+        updateProgress(false)
     }
 
     fun getRandomContents(type: String) {
+        updateProgress(true)
+
         currentContentsMapData.value?.let { currentMap ->
             val map= getRanDomContentsItemListMapUseCase(type, currentMap)
             _currentContentsListData.value = getNextContentsItemListUseCase(map)
             _currentContentsMapData.value = map
             _changeType.value = type
         }
+
+        updateProgress(false)
     }
 }

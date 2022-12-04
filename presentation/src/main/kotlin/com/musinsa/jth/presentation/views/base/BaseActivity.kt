@@ -5,6 +5,8 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.musinsa.jth.presentation.MuSinSaApplication.Companion.networkUtil
+import com.musinsa.jth.presentation.utils.NetworkUtil
 
 abstract class BaseActivity<T : ViewDataBinding?> : AppCompatActivity() {
     @LayoutRes
@@ -15,27 +17,25 @@ abstract class BaseActivity<T : ViewDataBinding?> : AppCompatActivity() {
     var binding: T? = null
         private set
 
+    var progressDialog: ProgressDialog ?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        /*networkUtil?.let {
-            it.setCurrentContext(this)
-        }*/
-
         binding = DataBindingUtil.setContentView(this, getLayoutResId())
         binding?.lifecycleOwner = this
         initializeViewModel()
         initializeUiEvent()
+        networkUtil()?.setCurrentContext(this)
     }
 
     override fun onStop() {
         super.onStop()
-        //networkUtil?.terminateNetworkCallback(this)
+        networkUtil()?.terminateNetworkCallback(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         binding = null
-        //networkUtil = null
+        networkUtil = null
     }
 }

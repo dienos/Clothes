@@ -54,25 +54,29 @@ fun setMainContents(
 ) {
     currentMap?.let {
         originalMap?.let {
-            view.adapter?.apply {
-                currentList?.let {
+            currentList?.let {
+                view.adapter?.apply {
                     val adapter = view.adapter as ContentsMainAdapter
                     adapter.currentMap = currentMap
                     adapter.submitList(it)
-                }
-            } ?: run {
-                val layoutManager =
-                    LinearLayoutManagerWrapper(view.context, LinearLayoutManager.VERTICAL, false)
-                layoutManager.orientation = LinearLayoutManager.VERTICAL
-                view.layoutManager = layoutManager
-                view.adapter =
-                    ContentsMainAdapter(
-                        activity,
-                        originalMap = originalMap,
-                        currentMap = currentMap
-                    )
+                } ?: run {
+                    val layoutManager =
+                        LinearLayoutManagerWrapper(
+                            view.context,
+                            LinearLayoutManager.VERTICAL,
+                            false
+                        )
+                    layoutManager.orientation = LinearLayoutManager.VERTICAL
+                    view.layoutManager = layoutManager
+                    view.adapter =
+                        ContentsMainAdapter(
+                            activity,
+                            originalMap = originalMap,
+                            currentMap = currentMap
+                        )
 
-                (view.adapter as ContentsMainAdapter).submitList(currentList)
+                    (view.adapter as ContentsMainAdapter).submitList(currentList)
+                }
             }
         }
     }
