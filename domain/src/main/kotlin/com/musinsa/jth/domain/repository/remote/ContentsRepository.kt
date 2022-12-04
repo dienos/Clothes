@@ -15,7 +15,17 @@ interface ContentsRepository {
         currentMap: Map<String, List<ContentsItem>>
     ): Map<String, List<ContentsItem>>
 
+    fun getRandomContentsItemListMap(
+        type: String,
+        currentMap: Map<String, List<ContentsItem>>
+    ): Map<String, List<ContentsItem>>
+
     fun getNextContentsItemList(
+        currentMap: Map<String, List<ContentsItem>>
+    ): List<List<ContentsItem>>
+
+    fun getRanDomContentsItemList(
+        type : String,
         currentMap: Map<String, List<ContentsItem>>
     ): List<List<ContentsItem>>
 

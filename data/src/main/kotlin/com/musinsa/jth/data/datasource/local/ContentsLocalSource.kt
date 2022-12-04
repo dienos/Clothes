@@ -7,6 +7,8 @@ import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.domain.model.remote.Data
 import com.musinsa.jth.domain.model.remote.DataItem
 import javax.inject.Inject
+import kotlin.collections.ArrayList
+import kotlin.collections.LinkedHashMap
 
 interface ContentsLocalSource {
     fun convertContentsMap(data: Data?): Map<String, DataItem>
@@ -17,7 +19,17 @@ interface ContentsLocalSource {
         currentMap: Map<String, List<ContentsItem>>
     ): Map<String, List<ContentsItem>>
 
+    fun getRandomContentsItemListMap(
+        type: String,
+        currentMap: Map<String, List<ContentsItem>>
+    ): Map<String, List<ContentsItem>>
+
     fun getNextContentsItemList(
+        currentMap: Map<String, List<ContentsItem>>
+    ): List<List<ContentsItem>>
+
+    fun getRandomContentsItemList(
+        type: String,
         currentMap: Map<String, List<ContentsItem>>
     ): List<List<ContentsItem>>
 
@@ -141,6 +153,21 @@ class ContentsLocalSourceImpl @Inject constructor(
         return map
     }
 
+    override fun getRandomContentsItemListMap(
+        type: String,
+        currentMap: Map<String, List<ContentsItem>>
+    ): Map<String, List<ContentsItem>> {
+        val map = LinkedHashMap<String, List<ContentsItem>>(currentMap)
+        val currentList = map[type]
+        val changedList = currentList?.shuffled()
+
+        changedList?.toMutableList()?.let {
+            map[type] = it
+        }
+
+        return map
+    }
+
     override fun getNextContentsItemList(currentMap: Map<String, List<ContentsItem>>): List<List<ContentsItem>> {
         val resultList = arrayListOf<List<ContentsItem>>()
         val contentsKeys: List<String> = currentMap.keys.toList()
@@ -149,6 +176,29 @@ class ContentsLocalSourceImpl @Inject constructor(
             currentMap[it]?.let {
                 item ->
                 resultList.add(item.toMutableList())
+            }
+        }
+
+        return resultList
+    }
+
+    override fun getRandomContentsItemList(type: String, currentMap: Map<String, List<ContentsItem>>): List<List<ContentsItem>> {
+        val resultList = arrayListOf<List<ContentsItem>>()
+        val contentsKeys: List<String> = currentMap.keys.toList()
+        val currentList = currentMap[type]
+        val changeList = currentList?.shuffled()
+
+        contentsKeys.forEach {
+            if(type == it) {
+                changeList?.let {
+                    item ->
+                    resultList.add(item.toMutableList())
+                }
+            } else {
+                currentMap[it]?.let {
+                        item ->
+                    resultList.add(item.toMutableList())
+                }
             }
         }
 

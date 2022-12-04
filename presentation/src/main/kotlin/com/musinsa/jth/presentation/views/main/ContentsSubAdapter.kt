@@ -133,6 +133,6 @@ object ContentsDiffCallback : DiffUtil.ItemCallback<ContentsItem>() {
     }
 
     override fun areContentsTheSame(oldItem: ContentsItem, newItem: ContentsItem): Boolean {
-        return oldItem == newItem
+        return oldItem.thumbnailURL == newItem.thumbnailURL
     }
 }

@@ -46,4 +46,15 @@ object UseCaseModule {
         return GetNextContentsItemListUseCase(repository)
     }
 
+    @Provides
+    fun providesGetRandomContentsItemListUseCase(repository: ContentsRepository): GetRandomContentsItemListUseCase {
+        return GetRandomContentsItemListUseCase(repository)
+    }
+
+    @Provides
+    fun providesGetRanDomContentsItemListMapUseCase(repository: ContentsRepository):  GetRanDomContentsItemListMapUseCase {
+        return GetRanDomContentsItemListMapUseCase(repository)
+    }
+
+
 }

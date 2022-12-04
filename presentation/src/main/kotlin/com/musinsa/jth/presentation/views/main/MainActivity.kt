@@ -29,6 +29,10 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
             ContentsFooterType.MORE.name -> {
                 binding?.viewModel?.getNextContents(contentsType)
             }
+
+            ContentsFooterType.REFRESH.name -> {
+                binding?.viewModel?.getRandomContents(contentsType)
+            }
         }
     }
 }

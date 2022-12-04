@@ -15,7 +15,9 @@ class MainViewModel @Inject constructor(
     private val convertContentsListToMapUseCase: ConvertContentsListToMapUseCase,
     private val getFirstContentsItemListMapUseCase: GetFirstContentsItemListMapUseCase,
     private val getNextContentsItemListMapUseCase: GetNextContentsItemListMapUseCase,
+    private val getRanDomContentsItemListMapUseCase: GetRanDomContentsItemListMapUseCase,
     private val getNextContentsItemListUseCase: GetNextContentsItemListUseCase,
+    private val getRandomContentsItemListUseCase: GetRandomContentsItemListUseCase,
 ) : BaseViewModel() {
 
     private var _changeType = MutableLiveData<String>()
@@ -34,6 +36,10 @@ class MainViewModel @Inject constructor(
         getContentsUseCase(scope = viewModelScope, { result ->
             _originalContentsMapData.value = convertContentsListToMapUseCase(result)
             _currentContentsMapData.value = getFirstContentsItemListMapUseCase(result)
+
+            currentContentsMapData.value?.let {
+                _currentContentsListData.value = getNextContentsItemListUseCase(it)
+            }
 
             updateProgress(false)
         }, {
@@ -55,6 +61,15 @@ class MainViewModel @Inject constructor(
                 _currentContentsListData.value = getNextContentsItemListUseCase(map)
                 _changeType.value = type
             }
+        }
+    }
+
+    fun getRandomContents(type: String) {
+        currentContentsMapData.value?.let { currentMap ->
+            val map= getRanDomContentsItemListMapUseCase(type, currentMap)
+            _currentContentsListData.value = getNextContentsItemListUseCase(map)
+            _currentContentsMapData.value = map
+            _changeType.value = type
         }
     }
 }

@@ -21,7 +21,7 @@ import com.musinsa.jth.presentation.views.web.WebViewActivity
 class ContentsMainAdapter(
     private val _activity: MainActivity,
     private val originalMap: Map<String, DataItem>,
-    private val currentMap: Map<String, List<ContentsItem>>
+    var currentMap: Map<String, List<ContentsItem>>
 ) : ListAdapter<List<ContentsItem>, RecyclerView.ViewHolder>(DiffCallback) {
     private val contentsKeys: List<String> = currentMap.keys.toList()
 
@@ -29,7 +29,7 @@ class ContentsMainAdapter(
         RecyclerView.ViewHolder(itemView) {
         private val bind = _bind
 
-        fun bind(_item: List<ContentsItem>?, _header: Header?, _footer: Footer?, _type : String?) {
+        fun bind(_item: List<ContentsItem>?, _header: Header?, _footer: Footer?, _type: String?) {
             bind.activity = _activity
             bind.item = _item
 
@@ -98,7 +98,7 @@ class ContentsMainAdapter(
         when (holder) {
             is ContentsViewHolder -> {
                 holder.bind(
-                    currentMap[contentsKeys[position]],
+                    getItem(position),
                     originalMap[contentsKeys[position]]?.header,
                     originalMap[contentsKeys[position]]?.footer,
                     originalMap[contentsKeys[position]]?.contents?.type
@@ -111,7 +111,7 @@ class ContentsMainAdapter(
 
             else -> {
                 (holder as ContentsViewHolder).bind(
-                    currentMap[contentsKeys[position]],
+                    getItem(position),
                     originalMap[contentsKeys[position]]?.header,
                     originalMap[contentsKeys[position]]?.footer,
                     originalMap[contentsKeys[position]]?.contents?.type

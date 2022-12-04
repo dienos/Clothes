@@ -27,9 +27,22 @@ class ContentsRepositoryImpl @Inject constructor(
     ): Map<String, List<ContentsItem>> =
         localSource.getNextContentsItemListMap(type, originalMap, currentMap)
 
+    override fun getRandomContentsItemListMap(
+        type: String,
+        currentMap: Map<String, List<ContentsItem>>
+    ): Map<String, List<ContentsItem>> {
+       return localSource.getRandomContentsItemListMap(type, currentMap)
+    }
+
     override fun getNextContentsItemList(currentMap: Map<String, List<ContentsItem>>): List<List<ContentsItem>> {
         return localSource.getNextContentsItemList(currentMap)
     }
+
+    override fun getRanDomContentsItemList(
+        type: String,
+        currentMap: Map<String, List<ContentsItem>>
+    ): List<List<ContentsItem>> =
+        localSource.getRandomContentsItemList(type, currentMap)
 
     override suspend fun getContentsMap(): Map<String, DataItem> {
         val result = remoteSource.getContents()

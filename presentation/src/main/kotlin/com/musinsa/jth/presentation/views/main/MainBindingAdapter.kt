@@ -56,6 +56,8 @@ fun setMainContents(
         originalMap?.let {
             view.adapter?.apply {
                 currentList?.let {
+                    val adapter = view.adapter as ContentsMainAdapter
+                    adapter.currentMap = currentMap
                     (view.adapter as ContentsMainAdapter).submitList(it)
                 }
             } ?: run {
@@ -69,6 +71,8 @@ fun setMainContents(
                         originalMap = originalMap,
                         currentMap = currentMap
                     )
+
+                (view.adapter as ContentsMainAdapter).submitList(currentList)
             }
         }
     }
@@ -81,7 +85,7 @@ fun setSubContents(view: RecyclerView, type: String, item: List<ContentsItem>?) 
             (view.adapter as ContentsSubAdapter).submitList(item.toMutableList()) {
                 view.scrollToPosition(0)
             }
-        }?: run {
+        } ?: run {
             var layoutManager = LinearLayoutManager(view.context)
             layoutManager.orientation = LinearLayoutManager.VERTICAL
 
