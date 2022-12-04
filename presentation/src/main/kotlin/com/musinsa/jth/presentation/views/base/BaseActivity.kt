@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.musinsa.jth.presentation.MuSinSaApplication.Companion.networkUtil
-import com.musinsa.jth.presentation.utils.NetworkUtil
 
 abstract class BaseActivity<T : ViewDataBinding?> : AppCompatActivity() {
     @LayoutRes

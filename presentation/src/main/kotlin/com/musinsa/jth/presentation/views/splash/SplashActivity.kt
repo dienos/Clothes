@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.musinsa.jth.presentation.MuSinSaApplication.Companion.networkUtil
 import com.musinsa.jth.presentation.R
 import com.musinsa.jth.presentation.utils.AnimationUtil
+import com.musinsa.jth.presentation.utils.NetworkUtil
 import com.musinsa.jth.presentation.viewmodels.splash.SplashViewModel
 import com.musinsa.jth.presentation.views.main.MainActivity
 
@@ -21,12 +22,13 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.splash_activity)
+
+        networkUtil = NetworkUtil()
         networkUtil()?.setCurrentContext(this)
         networkUtil()?.registerNetworkCallback()
 
-        setContentView(R.layout.splash_activity)
-
-        if(networkUtil()?.checkNetwork()!!) {
+        if (networkUtil()?.checkNetwork()!!) {
             val handler = Handler(mainLooper)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -36,7 +38,12 @@ class SplashActivity : AppCompatActivity() {
                         override fun onPreDraw(): Boolean {
                             return if (viewModel.complete.value) {
                                 content.viewTreeObserver.removeOnPreDrawListener(this)
-                                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                                startActivity(
+                                    Intent(
+                                        this@SplashActivity,
+                                        MainActivity::class.java
+                                    )
+                                )
                                 finish()
                                 true
                             } else {

@@ -19,9 +19,7 @@ class MainViewModel @Inject constructor(
     private val getRanDomContentsItemListMapUseCase: GetRanDomContentsItemListMapUseCase,
     private val getNextContentsItemListUseCase: GetNextContentsItemListUseCase,
 ) : BaseViewModel() {
-
-    private var _changeType = MutableLiveData<String>()
-    val changeType: LiveData<String> = _changeType
+    var backPressedTime: Long = 0
 
     private var _originalContentsMapData = MutableLiveData<Map<String, DataItem>>()
     val originalContentsMapData: LiveData<Map<String, DataItem>> = _originalContentsMapData
@@ -63,7 +61,6 @@ class MainViewModel @Inject constructor(
 
                 _currentContentsMapData.value = LinkedHashMap<String, List<ContentsItem>>(map)
                 _currentContentsListData.value = getNextContentsItemListUseCase(map)
-                _changeType.value = type
             }
         }
 
@@ -77,7 +74,6 @@ class MainViewModel @Inject constructor(
             val map= getRanDomContentsItemListMapUseCase(type, currentMap)
             _currentContentsListData.value = getNextContentsItemListUseCase(map)
             _currentContentsMapData.value = map
-            _changeType.value = type
         }
 
         updateProgress(false)
