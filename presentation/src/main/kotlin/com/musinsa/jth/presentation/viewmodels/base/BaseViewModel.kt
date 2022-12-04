@@ -1,4 +1,4 @@
-package com.musinsa.jth.presentation.viewmodels
+package com.musinsa.jth.presentation.viewmodels.base
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

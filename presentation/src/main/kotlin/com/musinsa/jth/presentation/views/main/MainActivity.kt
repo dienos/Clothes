@@ -2,10 +2,10 @@ package com.musinsa.jth.presentation.views.main
 
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.musinsa.jth.data.repository.local.ContentsFooterType
+import com.musinsa.jth.data.model.local.ContentsFooterType
 import com.musinsa.jth.presentation.R
 import com.musinsa.jth.presentation.databinding.MainActivityBinding
-import com.musinsa.jth.presentation.viewmodels.MainViewModel
+import com.musinsa.jth.presentation.viewmodels.main.MainViewModel
 import com.musinsa.jth.presentation.views.base.BaseActivity
 import com.musinsa.jth.presentation.views.base.ProgressDialog
 import dagger.hilt.android.AndroidEntryPoint

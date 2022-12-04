@@ -5,9 +5,8 @@ import android.util.AttributeSet
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.*
-import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 import androidx.viewpager2.widget.ViewPager2
-import com.musinsa.jth.data.repository.local.ContentsType
+import com.musinsa.jth.data.model.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.presentation.R

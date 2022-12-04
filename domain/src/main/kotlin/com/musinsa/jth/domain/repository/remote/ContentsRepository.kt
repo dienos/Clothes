@@ -6,7 +6,6 @@ import com.musinsa.jth.domain.model.remote.DataItem
 
 interface ContentsRepository {
     suspend fun getContents(): Data
-    suspend fun getContentsMap(): Map<String, DataItem>
     fun convertContentsMap(data: Data): Map<String, DataItem>
     fun getFirstContentsItemListMap(data: Data?): Map<String, List<ContentsItem>>
     fun getNextContentsItemListMap(
@@ -23,17 +22,4 @@ interface ContentsRepository {
     fun getNextContentsItemList(
         currentMap: Map<String, List<ContentsItem>>
     ): List<List<ContentsItem>>
-
-    fun getRanDomContentsItemList(
-        type : String,
-        currentMap: Map<String, List<ContentsItem>>
-    ): List<List<ContentsItem>>
-
-    fun getContentsByPageNumber(
-        map: Map<String, DataItem>,
-        type: String,
-        index: Int
-    ): List<ContentsItem>
-
-    fun getContentsByType(map: Map<String, DataItem>, type: String): DataItem?
 }

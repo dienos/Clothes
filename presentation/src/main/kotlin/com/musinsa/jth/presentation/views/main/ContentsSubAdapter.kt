@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.musinsa.jth.data.repository.local.ContentsType
+import com.musinsa.jth.data.model.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.presentation.MuSinSaApplication
 import com.musinsa.jth.presentation.databinding.ContentSubGoodsItemBinding

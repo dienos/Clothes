@@ -2,7 +2,7 @@ package com.musinsa.jth.data.datasource.local
 
 import com.musinsa.jth.data.api.MuSinSaService
 import com.musinsa.jth.data.model.local.PageSize
-import com.musinsa.jth.data.repository.local.ContentsType
+import com.musinsa.jth.data.model.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.domain.model.remote.Data
 import com.musinsa.jth.domain.model.remote.DataItem
@@ -27,19 +27,6 @@ interface ContentsLocalSource {
     fun getNextContentsItemList(
         currentMap: Map<String, List<ContentsItem>>
     ): List<List<ContentsItem>>
-
-    fun getRandomContentsItemList(
-        type: String,
-        currentMap: Map<String, List<ContentsItem>>
-    ): List<List<ContentsItem>>
-
-    fun getContentsByPageNumber(
-        map: Map<String, DataItem>,
-        type: String,
-        pageNumber: Int
-    ): List<ContentsItem>
-
-    fun getContentsByType(map: Map<String, DataItem>, type: String): DataItem?
 }
 
 class ContentsLocalSourceImpl @Inject constructor(
@@ -173,113 +160,11 @@ class ContentsLocalSourceImpl @Inject constructor(
         val contentsKeys: List<String> = currentMap.keys.toList()
 
         contentsKeys.forEach {
-            currentMap[it]?.let {
-                item ->
+            currentMap[it]?.let { item ->
                 resultList.add(item.toMutableList())
             }
         }
 
         return resultList
-    }
-
-    override fun getRandomContentsItemList(type: String, currentMap: Map<String, List<ContentsItem>>): List<List<ContentsItem>> {
-        val resultList = arrayListOf<List<ContentsItem>>()
-        val contentsKeys: List<String> = currentMap.keys.toList()
-        val currentList = currentMap[type]
-        val changeList = currentList?.shuffled()
-
-        contentsKeys.forEach {
-            if(type == it) {
-                changeList?.let {
-                    item ->
-                    resultList.add(item.toMutableList())
-                }
-            } else {
-                currentMap[it]?.let {
-                        item ->
-                    resultList.add(item.toMutableList())
-                }
-            }
-        }
-
-        return resultList
-    }
-
-    override fun getContentsByPageNumber(
-        map: Map<String, DataItem>,
-        type: String,
-        pageNumber: Int
-    ): List<ContentsItem> {
-        val list: ArrayList<ContentsItem> = arrayListOf()
-        val stylePage = 4
-        val gridPage = 6
-
-        when (type) {
-            ContentsType.GRID.name -> {
-                val contents = map[type]?.contents?.goods
-                contents?.let {
-                    if (pageNumber == 1) {
-                        for (i in 0 until gridPage) {
-                            if (i < contents.size) {
-                                list.add(contents[i])
-                            }
-                        }
-                    } else {
-                        val start = pageNumber.minus(1).times(gridPage)
-                        val end = start.plus(gridPage)
-
-                        for (i in start until end) {
-                            if (i < contents.size) {
-                                list.add(contents[i])
-                            }
-                        }
-                    }
-                }
-            }
-
-            ContentsType.STYLE.name -> {
-                val contents = map[type]?.contents?.styles
-                contents?.let {
-                    if (pageNumber == 1) {
-                        for (i in 0 until stylePage) {
-                            if (i < contents.size) {
-                                list.add(contents[i])
-                            }
-                        }
-                    } else {
-                        val start = pageNumber.minus(1).times(stylePage)
-                        val end = start.plus(stylePage)
-
-                        for (i in start until end) {
-                            if (i < contents.size) {
-                                list.add(contents[i])
-                            }
-                        }
-                    }
-                }
-            }
-
-            ContentsType.SCROLL.name -> {
-                val contents = map[type]?.contents?.goods
-
-                contents?.let {
-                    if (pageNumber >= contents.size) {
-                        return list
-                    }
-
-                    return contents
-                }
-            }
-        }
-
-        return list
-    }
-
-    override fun getContentsByType(map: Map<String, DataItem>, type: String): DataItem? {
-        map[type]?.let {
-            return it
-        }
-
-        return null
     }
 }

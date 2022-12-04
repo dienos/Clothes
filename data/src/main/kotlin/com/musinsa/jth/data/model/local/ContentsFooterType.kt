@@ -1,4 +1,4 @@
-package com.musinsa.jth.data.repository.local
+package com.musinsa.jth.data.model.local
 
 enum class ContentsFooterType {
     REFRESH,

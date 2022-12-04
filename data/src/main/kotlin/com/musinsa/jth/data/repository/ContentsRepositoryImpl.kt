@@ -37,24 +37,4 @@ class ContentsRepositoryImpl @Inject constructor(
     override fun getNextContentsItemList(currentMap: Map<String, List<ContentsItem>>): List<List<ContentsItem>> {
         return localSource.getNextContentsItemList(currentMap)
     }
-
-    override fun getRanDomContentsItemList(
-        type: String,
-        currentMap: Map<String, List<ContentsItem>>
-    ): List<List<ContentsItem>> =
-        localSource.getRandomContentsItemList(type, currentMap)
-
-    override suspend fun getContentsMap(): Map<String, DataItem> {
-        val result = remoteSource.getContents()
-        return localSource.convertContentsMap(result)
-    }
-
-    override fun getContentsByPageNumber(
-        map: Map<String, DataItem>,
-        type: String,
-        index: Int
-    ): List<ContentsItem> = localSource.getContentsByPageNumber(map, type, index)
-
-    override fun getContentsByType(map: Map<String, DataItem>, type: String): DataItem? =
-        localSource.getContentsByType(map, type)
 }

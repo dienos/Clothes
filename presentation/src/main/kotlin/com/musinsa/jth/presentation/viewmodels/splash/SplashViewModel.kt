@@ -1,5 +1,6 @@
-package com.musinsa.jth.presentation.viewmodels
+package com.musinsa.jth.presentation.viewmodels.splash
 
+import com.musinsa.jth.presentation.viewmodels.base.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

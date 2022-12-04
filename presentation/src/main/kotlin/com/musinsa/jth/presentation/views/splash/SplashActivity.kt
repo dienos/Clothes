@@ -1,4 +1,4 @@
-package com.musinsa.jth.presentation.views.main
+package com.musinsa.jth.presentation.views.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -12,7 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.musinsa.jth.presentation.MuSinSaApplication.Companion.networkUtil
 import com.musinsa.jth.presentation.R
 import com.musinsa.jth.presentation.utils.AnimationUtil
-import com.musinsa.jth.presentation.viewmodels.SplashViewModel
+import com.musinsa.jth.presentation.viewmodels.splash.SplashViewModel
+import com.musinsa.jth.presentation.views.main.MainActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {

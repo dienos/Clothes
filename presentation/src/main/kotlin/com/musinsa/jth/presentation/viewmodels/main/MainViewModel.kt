@@ -1,4 +1,4 @@
-package com.musinsa.jth.presentation.viewmodels
+package com.musinsa.jth.presentation.viewmodels.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +7,7 @@ import com.musinsa.jth.domain.model.remote.ContentsItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.domain.usecase.*
+import com.musinsa.jth.presentation.viewmodels.base.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +18,6 @@ class MainViewModel @Inject constructor(
     private val getNextContentsItemListMapUseCase: GetNextContentsItemListMapUseCase,
     private val getRanDomContentsItemListMapUseCase: GetRanDomContentsItemListMapUseCase,
     private val getNextContentsItemListUseCase: GetNextContentsItemListUseCase,
-    private val getRandomContentsItemListUseCase: GetRandomContentsItemListUseCase,
 ) : BaseViewModel() {
 
     private var _changeType = MutableLiveData<String>()

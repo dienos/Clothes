@@ -22,16 +22,6 @@ object UseCaseModule {
     }
 
     @Provides
-    fun providesGetContentsMapUseCase(repository: ContentsRepository): GetContentsByPageNumberUseCase {
-        return GetContentsByPageNumberUseCase(repository)
-    }
-
-    @Provides
-    fun providesGetContentsByTypeUseCase(repository: ContentsRepository): GetContentsByTypeUseCase {
-        return GetContentsByTypeUseCase(repository)
-    }
-
-    @Provides
     fun providesInitContentsMapUseCase(repository: ContentsRepository): GetFirstContentsItemListMapUseCase {
         return GetFirstContentsItemListMapUseCase(repository)
     }
@@ -46,15 +36,10 @@ object UseCaseModule {
         return GetNextContentsItemListUseCase(repository)
     }
 
-    @Provides
-    fun providesGetRandomContentsItemListUseCase(repository: ContentsRepository): GetRandomContentsItemListUseCase {
-        return GetRandomContentsItemListUseCase(repository)
-    }
 
     @Provides
     fun providesGetRanDomContentsItemListMapUseCase(repository: ContentsRepository):  GetRanDomContentsItemListMapUseCase {
         return GetRanDomContentsItemListMapUseCase(repository)
     }
-
 
 }

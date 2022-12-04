@@ -13,7 +13,7 @@
 
         <variable
             name="viewModel"
-            type="com.musinsa.jth.presentation.viewmodels.MainViewModel" />
+            type="com.musinsa.jth.presentation.viewmodels.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
