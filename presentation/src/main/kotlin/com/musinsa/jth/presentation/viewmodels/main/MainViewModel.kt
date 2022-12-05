@@ -30,6 +30,9 @@ class MainViewModel @Inject constructor(
     private var _currentContentsListData = MutableLiveData<List<List<ContentsItem>>>()
     val currentContentsListData: LiveData<List<List<ContentsItem>>> = _currentContentsListData
 
+    private var _type = MutableLiveData<String>()
+    val type: LiveData<String> = _type
+
     fun getContents() {
         updateProgress(true)
 
@@ -61,6 +64,7 @@ class MainViewModel @Inject constructor(
 
                 _currentContentsMapData.value = LinkedHashMap<String, List<ContentsItem>>(map)
                 _currentContentsListData.value = getNextContentsItemListUseCase(map)
+                _type.value = type
             }
         }
 
@@ -71,9 +75,10 @@ class MainViewModel @Inject constructor(
         updateProgress(true)
 
         currentContentsMapData.value?.let { currentMap ->
-            val map= getRanDomContentsItemListMapUseCase(type, currentMap)
+            val map = getRanDomContentsItemListMapUseCase(type, currentMap)
             _currentContentsListData.value = getNextContentsItemListUseCase(map)
             _currentContentsMapData.value = map
+            _type.value = type
         }
 
         updateProgress(false)

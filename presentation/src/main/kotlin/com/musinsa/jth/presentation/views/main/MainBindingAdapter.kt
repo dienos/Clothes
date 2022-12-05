@@ -1,8 +1,10 @@
 package com.musinsa.jth.presentation.views.main
 
-import android.content.Context
-import android.util.AttributeSet
+import android.os.Handler
+import android.os.Looper
+import android.widget.ScrollView
 import android.widget.TextView
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.*
 import androidx.viewpager2.widget.ViewPager2
@@ -13,33 +15,22 @@ import com.musinsa.jth.presentation.R
 import java.text.DecimalFormat
 
 
+@BindingAdapter(value = ["content_type"])
+fun scrollToPosition(view: NestedScrollView, type: String?) {
+    type?.let {
+        if (type == ContentsType.STYLE.name) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                view.fullScroll(ScrollView.FOCUS_DOWN)
+            }, 300)
+        }
+    }
+}
+
 @BindingAdapter(value = ["banner_items"])
 fun setBanners(view: ViewPager2, items: List<ContentsItem>?) {
     items?.let {
         view.adapter = BannerViewPagerAdapter(it)
         view.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-    }
-}
-
-class LinearLayoutManagerWrapper : LinearLayoutManager {
-    constructor(context: Context) : super(context) {}
-    constructor(context: Context, orientation: Int, reverseLayout: Boolean) : super(
-        context,
-        orientation,
-        reverseLayout
-    ) {
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(
-        context,
-        attrs,
-        defStyleAttr,
-        defStyleRes
-    ) {
-    }
-
-    override fun supportsPredictiveItemAnimations(): Boolean {
-        return false
     }
 }
 
@@ -60,7 +51,7 @@ fun setMainContents(
                     adapter.submitList(it)
                 } ?: run {
                     val layoutManager =
-                        LinearLayoutManagerWrapper(
+                        LinearLayoutManager(
                             view.context,
                             LinearLayoutManager.VERTICAL,
                             false
@@ -86,11 +77,7 @@ fun setSubContents(view: RecyclerView, type: String, item: List<ContentsItem>?) 
     item?.let {
         view.adapter?.apply {
             val adapter = (view.adapter as ContentsSubAdapter)
-            adapter.submitList(item.toMutableList()) {
-                if (type == ContentsType.STYLE.name) {
-                    view.scrollToPosition(adapter.itemCount - 1)
-                }
-            }
+            adapter.submitList(item)
         } ?: run {
             var layoutManager = LinearLayoutManager(view.context)
             layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -112,13 +99,10 @@ fun setSubContents(view: RecyclerView, type: String, item: List<ContentsItem>?) 
                 }
             }
 
-            val adapter = ContentsSubAdapter(type)
+            val adapter = ContentsSubAdapter(view.context, type)
+
             view.adapter = adapter
-            adapter.submitList(item.toMutableList()) {
-                if (type == ContentsType.STYLE.name) {
-                    view.scrollToPosition(adapter.itemCount - 1)
-                }
-            }
+            adapter.submitList(item)
         }
     }
 }

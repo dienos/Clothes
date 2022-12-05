@@ -1,5 +1,6 @@
 package com.musinsa.jth.presentation.views.main
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -9,14 +10,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.musinsa.jth.data.model.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
-import com.musinsa.jth.presentation.MuSinSaApplication
 import com.musinsa.jth.presentation.databinding.ContentSubGoodsItemBinding
 import com.musinsa.jth.presentation.databinding.ContentSubStyleItemBinding
 import com.musinsa.jth.presentation.views.web.Const
 import com.musinsa.jth.presentation.views.web.WebViewActivity
 
-class ContentsSubAdapter(private val type: String) :
+class ContentsSubAdapter(private val context : Context, private val type: String) :
     ListAdapter<ContentsItem, RecyclerView.ViewHolder>(ContentsDiffCallback) {
+
+    init {
+        setHasStableIds(true)
+    }
 
     inner class GoodsViewHolder(itemView: View, _bind: ContentSubGoodsItemBinding) :
         RecyclerView.ViewHolder(itemView) {
@@ -118,7 +122,6 @@ class ContentsSubAdapter(private val type: String) :
     }
 
     fun onContentsItemClick(url: String) {
-        val context = MuSinSaApplication.applicationContext()
         val intent = Intent(context, WebViewActivity::class.java)
         intent.putExtra(Const.WEB_URL, url)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -133,6 +136,6 @@ object ContentsDiffCallback : DiffUtil.ItemCallback<ContentsItem>() {
     }
 
     override fun areContentsTheSame(oldItem: ContentsItem, newItem: ContentsItem): Boolean {
-        return oldItem.thumbnailURL == newItem.thumbnailURL
+        return oldItem == newItem
     }
 }

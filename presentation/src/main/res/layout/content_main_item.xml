@@ -52,14 +52,19 @@
             app:adapter="@{adapter}"
             app:header="@{contents_header}" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_contents"
+        <com.musinsa.jth.presentation.views.base.NestedScrollableHost
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:contents_type="@{contents_type}"
-            app:layout_constraintTop_toBottomOf="@+id/header"
-            app:sub_items="@{item}" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_contents"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:contents_type="@{contents_type}"
+                app:layout_constraintTop_toBottomOf="@+id/header"
+                app:sub_items="@{item}" />
+        </com.musinsa.jth.presentation.views.base.NestedScrollableHost>
 
         <include
             layout="@layout/contents_footer"
@@ -68,11 +73,10 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            app:activity="@{activity}"
-            app:type="@{contents_type}"
-            app:footer="@{contents_footer}"
             android:visibility="@{footer_visible ? View.VISIBLE : View.GONE}"
-            />
+            app:activity="@{activity}"
+            app:footer="@{contents_footer}"
+            app:type="@{contents_type}" />
 
     </LinearLayout>
 </layout>
