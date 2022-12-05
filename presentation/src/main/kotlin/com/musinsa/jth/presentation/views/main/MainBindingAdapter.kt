@@ -21,6 +21,7 @@ fun scrollToPosition(view: NestedScrollView, type: String?) {
         if (type == ContentsType.STYLE.name) {
             Handler(Looper.getMainLooper()).postDelayed({
                 view.fullScroll(ScrollView.FOCUS_DOWN)
+                view.clearFocus()
             }, 300)
         }
     }
