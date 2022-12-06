@@ -3,15 +3,15 @@ package com.musinsa.jth.data.model.remote
 import com.google.gson.annotations.SerializedName
 import com.musinsa.jth.domain.model.remote.Footer
 
-data class FooterModel (
+data class FooterModel(
     @SerializedName("type")
-    val _type : String,
+    val _type: String,
 
     @SerializedName("title")
-    val _title : String,
+    val _title: String,
 
     @SerializedName("iconURL")
-    val _iconURL : String?
+    val _iconURL: String?
 ) : Footer {
     override val iconURL: String?
         get() = _iconURL

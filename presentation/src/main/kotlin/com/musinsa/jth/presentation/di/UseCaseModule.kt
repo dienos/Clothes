@@ -38,7 +38,7 @@ object UseCaseModule {
 
 
     @Provides
-    fun providesGetRanDomContentsItemListMapUseCase(repository: ContentsRepository):  GetRanDomContentsItemListMapUseCase {
+    fun providesGetRanDomContentsItemListMapUseCase(repository: ContentsRepository): GetRanDomContentsItemListMapUseCase {
         return GetRanDomContentsItemListMapUseCase(repository)
     }
 

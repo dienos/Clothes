@@ -8,7 +8,7 @@ fun Activity.isActivityAvailable(): Boolean {
     return !isFinishing
 }
 
-fun Activity.showDlg(message : String) {
+fun Activity.showDlg(message: String) {
     if (this is FragmentActivity && this.isActivityAvailable()) {
         val fragmentManager = supportFragmentManager
         CustomDialogFragment(

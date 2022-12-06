@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -18,7 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle_12_dark_gray"
+        android:background="@drawable/shape_rectangle_12_gray"
         android:onClick="@{() -> adapter.onContentsItemClick(item.linkURL)}"
         android:orientation="vertical">
 
@@ -26,8 +25,8 @@
             android:id="@+id/iv_contents_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="2dp"
             android:layout_gravity="center_horizontal"
-            app:contents_image="@{item.thumbnailURL}"/>
+            android:padding="2dp"
+            app:contents_image="@{item.thumbnailURL}" />
     </LinearLayout>
 </layout>

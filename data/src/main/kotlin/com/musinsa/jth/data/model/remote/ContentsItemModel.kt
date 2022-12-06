@@ -3,40 +3,40 @@ package com.musinsa.jth.data.model.remote
 import com.google.gson.annotations.SerializedName
 import com.musinsa.jth.domain.model.remote.ContentsItem
 
-data class ContentsItemModel (
+data class ContentsItemModel(
     @SerializedName("linkURL")
-    val _linkURL : String,
+    val _linkURL: String,
 
     @SerializedName("thumbnailURL")
-    val _thumbnailURL : String,
+    val _thumbnailURL: String,
 
     @SerializedName("brandName")
-    val _brandName : String?,
+    val _brandName: String?,
 
     @SerializedName("price")
-    val _price : Int?,
+    val _price: Int?,
 
     @SerializedName("saleRate")
-    val _saleRate : Int?,
+    val _saleRate: Int?,
 
     @SerializedName("hasCoupon")
-    val _hasCoupon : Boolean?,
+    val _hasCoupon: Boolean?,
 
     @SerializedName("title")
-    val _title : String?,
+    val _title: String?,
 
     @SerializedName("_description")
-    val _description : String?,
+    val _description: String?,
 
     @SerializedName("keyword")
-    val _keyword : String?
+    val _keyword: String?
 ) : ContentsItem {
     override val brandName: String?
         get() = _brandName
     override val hasCoupon: Boolean?
         get() = _hasCoupon
     override val linkURL: String
-        get() =_linkURL
+        get() = _linkURL
     override val price: Int?
         get() = _price
     override val saleRate: Int?

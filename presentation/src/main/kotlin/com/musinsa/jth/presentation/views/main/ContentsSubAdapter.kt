@@ -15,7 +15,7 @@ import com.musinsa.jth.presentation.databinding.ContentSubStyleItemBinding
 import com.musinsa.jth.presentation.views.const.WebConst.WEB_URL
 import com.musinsa.jth.presentation.views.web.WebViewActivity
 
-class ContentsSubAdapter(private val context : Context, private val type: String) :
+class ContentsSubAdapter(private val context: Context, private val type: String) :
     ListAdapter<ContentsItem, RecyclerView.ViewHolder>(ContentsDiffCallback) {
 
     init {
@@ -46,7 +46,7 @@ class ContentsSubAdapter(private val context : Context, private val type: String
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-             ContentsType.GRID.intType, ContentsType.SCROLL.intType -> {
+            ContentsType.GRID.intType, ContentsType.SCROLL.intType -> {
                 val bind = ContentSubGoodsItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,

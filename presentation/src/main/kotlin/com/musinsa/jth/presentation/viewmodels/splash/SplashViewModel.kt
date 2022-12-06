@@ -8,7 +8,7 @@ class SplashViewModel : BaseViewModel() {
     private val _complete = MutableStateFlow(false)
     val complete = _complete.asStateFlow()
 
-    fun updateComplete(){
+    fun updateComplete() {
         _complete.value = true
     }
 }

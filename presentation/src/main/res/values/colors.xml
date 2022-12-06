@@ -10,5 +10,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="pale_grey">#f7f7f9</color>
     <color name="dark_grey">#1e2022</color>
+    <color name="grey">#808080</color>
     <color name="soft_blue">#5383e8</color>
 </resources>

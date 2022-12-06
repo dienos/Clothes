@@ -12,7 +12,7 @@ import com.musinsa.jth.presentation.databinding.BannerSubItemBinding
 import com.musinsa.jth.presentation.views.const.WebConst.WEB_URL
 import com.musinsa.jth.presentation.views.web.WebViewActivity
 
-class BannerViewPagerAdapter(private val context : Context, private val list: List<ContentsItem>) :
+class BannerViewPagerAdapter(private val context: Context, private val list: List<ContentsItem>) :
     RecyclerView.Adapter<BannerViewPagerAdapter.PagerViewHolder>() {
 
     private lateinit var binding: BannerSubItemBinding
@@ -33,7 +33,7 @@ class BannerViewPagerAdapter(private val context : Context, private val list: Li
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
         binding = BannerSubItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        binding.bannerTotalCount =  list.size
+        binding.bannerTotalCount = list.size
         binding.adapter = this
         return PagerViewHolder(binding.root)
     }

@@ -47,8 +47,8 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp">
 
                 <TextView
                     android:id="@+id/tv_price"
@@ -62,9 +62,9 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="-5dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginBottom="-5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -81,16 +81,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
                         android:background="@drawable/shape_rectangle_20_soft_blue"
                         android:paddingHorizontal="2dp"
-                        android:layout_marginStart="10dp"
                         android:paddingVertical="2dp"
                         android:text="@string/coupon"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
+                        android:textSize="8sp"
                         android:visibility="@{item.hasCoupon ? View.VISIBLE : View.GONE}" />
                 </LinearLayout>
-
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

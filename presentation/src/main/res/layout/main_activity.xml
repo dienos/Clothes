@@ -24,8 +24,8 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:fillViewport="true"
+            android:orientation="vertical"
             app:content_type="@{viewModel.type}"
             app:layout_constraintTop_toTopOf="parent">
 

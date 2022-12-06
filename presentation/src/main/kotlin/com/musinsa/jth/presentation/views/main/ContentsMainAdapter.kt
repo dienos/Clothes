@@ -55,7 +55,8 @@ class ContentsMainAdapter(
                 bind.contentsFooter = it
             }
 
-            bind.footerVisible = (_type == ContentsType.SCROLL.name ) || (_originalItem?.size != _item?.size)
+            bind.footerVisible =
+                (_type == ContentsType.SCROLL.name) || (_originalItem?.size != _item?.size)
         }
     }
 

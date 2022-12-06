@@ -21,7 +21,7 @@ class WebViewActivity : BaseActivity<WebActivityBinding>() {
 
         binding?.web?.settings?.javaScriptEnabled = true
 
-        binding?.web?.webViewClient   = WebViewClient()
+        binding?.web?.webViewClient = WebViewClient()
         binding?.web?.webChromeClient = WebChromeClient()
 
         url?.let {

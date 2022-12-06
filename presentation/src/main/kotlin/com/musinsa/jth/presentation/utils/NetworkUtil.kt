@@ -7,7 +7,7 @@ import com.musinsa.jth.presentation.R
 import com.musinsa.jth.presentation.extensions.showDlg
 
 class NetworkUtil {
-    var currentContext : Context? = null
+    var currentContext: Context? = null
 
     private val networkCallBack = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {
@@ -16,7 +16,7 @@ class NetworkUtil {
 
         override fun onLost(network: Network) {
             currentContext?.let {
-                if(it is Activity) {
+                if (it is Activity) {
                     it.showDlg(it.getString(R.string.network_error))
                 }
             }
@@ -40,14 +40,14 @@ class NetworkUtil {
         connectivityManager?.registerNetworkCallback(networkRequest, networkCallBack)
     }
 
-    fun terminateNetworkCallback(context : Context?) {
+    fun terminateNetworkCallback(context: Context?) {
         val connectivityManager = context?.getSystemService(ConnectivityManager::class.java)
         connectivityManager?.unregisterNetworkCallback(networkCallBack)
     }
 
     fun networkNotConnect() {
         currentContext?.let {
-            if(it is Activity) {
+            if (it is Activity) {
                 it.showDlg(it.getString(R.string.network_error))
             }
         }

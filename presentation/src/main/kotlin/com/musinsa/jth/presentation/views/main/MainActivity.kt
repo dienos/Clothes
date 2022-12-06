@@ -13,7 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class MainActivity : BaseActivity<MainActivityBinding>() {
     private val _viewModel: MainViewModel by viewModels()
@@ -32,7 +31,7 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
         progressDialog = ProgressDialog()
 
         binding?.lifecycleOwner?.lifecycleScope?.launch {
-            viewModel.progressFlow.collect{ isShowing ->
+            viewModel.progressFlow.collect { isShowing ->
 
                 if (isShowing) {
                     progressDialog?.show(supportFragmentManager, "progress")
@@ -43,16 +42,16 @@ class MainActivity : BaseActivity<MainActivityBinding>() {
         }
 
         binding?.lifecycleOwner?.lifecycleScope?.launch {
-            viewModel.toastFlow.collect{ msg ->
-                if(msg.isNotEmpty()) {
+            viewModel.toastFlow.collect { msg ->
+                if (msg.isNotEmpty()) {
                     Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
-    fun onclickFooter(contentsType :String,  footerType : String) {
-        when(footerType) {
+    fun onclickFooter(contentsType: String, footerType: String) {
+        when (footerType) {
             ContentsFooterType.MORE.name -> {
                 binding?.viewModel?.getNextContents(contentsType)
             }

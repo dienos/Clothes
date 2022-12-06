@@ -14,7 +14,7 @@ android {
         minSdk = Config.Version.minSdk
         targetSdk = Config.Version.targetSdk
         versionCode = Config.Version.versionCode
-        versionName =Config.Version.versionName
+        versionName = Config.Version.versionName
         testInstrumentationRunner = Config.Android.Test.jUnitRunner
     }
 
@@ -76,12 +76,12 @@ dependencies {
     implementation(Config.Android.Splash.splashScreen)
 
     implementation(Config.Android.core)
-    implementation( Config.Android.appcompat)
-    implementation( Config.Android.material)
+    implementation(Config.Android.appcompat)
+    implementation(Config.Android.material)
 
     implementation(Config.Android.ViewPager.viewPager2)
 
-    testImplementation( Config.Android.Test.jUnit)
+    testImplementation(Config.Android.Test.jUnit)
     androidTestImplementation(Config.Android.Test.ext)
     androidTestImplementation(Config.Android.Test.espresso)
 }

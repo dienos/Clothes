@@ -6,15 +6,15 @@ import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.domain.model.remote.Footer
 import com.musinsa.jth.domain.model.remote.Header
 
-data class DataItemModel (
+data class DataItemModel(
     @SerializedName("header")
-    val _header : HeaderModel?,
+    val _header: HeaderModel?,
 
     @SerializedName("contents")
-    val _contents : ContentsModel,
+    val _contents: ContentsModel,
 
     @SerializedName("footer")
-    val _footer : FooterModel?,
+    val _footer: FooterModel?,
 ) : DataItem {
     override val contents: Contents
         get() = _contents

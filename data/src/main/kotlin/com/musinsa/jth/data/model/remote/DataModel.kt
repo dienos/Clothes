@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.musinsa.jth.domain.model.remote.Data
 import com.musinsa.jth.domain.model.remote.DataItem
 
-data class DataModel (
+data class DataModel(
     @SerializedName("data")
     val _data: List<DataItemModel>
 ) : Data {

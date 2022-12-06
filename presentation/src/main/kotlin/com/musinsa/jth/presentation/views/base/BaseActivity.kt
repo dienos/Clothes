@@ -14,12 +14,13 @@ abstract class BaseActivity<T : ViewDataBinding?> : AppCompatActivity() {
     abstract fun initializeViewModel()
     abstract fun initializeUiEvent()
 
-    @Inject lateinit var networkUtil: NetworkUtil
+    @Inject
+    lateinit var networkUtil: NetworkUtil
 
     var binding: T? = null
         private set
 
-    var progressDialog: ProgressDialog ?= null
+    var progressDialog: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

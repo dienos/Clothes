@@ -21,14 +21,14 @@ fun setImage(view: RelativeLayout, url: String?) {
         Glide
             .with(view.context).load(url)
             .into(object : CustomTarget<Drawable>() {
-            override fun onResourceReady(
-                resource: Drawable,
-                transition: Transition<in Drawable>?
-            ) {
-                view.background = resource
-            }
+                override fun onResourceReady(
+                    resource: Drawable,
+                    transition: Transition<in Drawable>?
+                ) {
+                    view.background = resource
+                }
 
-            override fun onLoadCleared(placeholder: Drawable?) {}
-        })
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
     }
 }

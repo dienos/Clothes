@@ -25,8 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -39,29 +39,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{header.title}"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
                 android:gravity="center_horizontal"
+                android:text="@{header.title}"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{header.linkURL != null ? View.VISIBLE : View.GONE}"
+            android:layout_gravity="center_vertical"
             android:onClick="@{() -> adapter.onContentsItemClick(header.linkURL)}"
             android:text="@string/all"
             android:textColor="@color/dark_grey"
             android:textSize="15sp"
+            android:visibility="@{header.linkURL != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

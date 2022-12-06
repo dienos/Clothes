@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface MuSinSaService {
     @GET(INTERVIEW_URI)
-    suspend fun getContents() : DataModel
+    suspend fun getContents(): DataModel
 }

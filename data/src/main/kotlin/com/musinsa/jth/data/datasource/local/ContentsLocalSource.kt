@@ -1,6 +1,5 @@
 package com.musinsa.jth.data.datasource.local
 
-import com.musinsa.jth.data.api.MuSinSaService
 import com.musinsa.jth.data.model.local.PageSize
 import com.musinsa.jth.data.model.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
@@ -29,9 +28,7 @@ interface ContentsLocalSource {
     ): List<List<ContentsItem>>
 }
 
-class ContentsLocalSourceImpl @Inject constructor(
-    private val service: MuSinSaService //do nothing
-) : ContentsLocalSource {
+class ContentsLocalSourceImpl @Inject constructor() : ContentsLocalSource {
     override fun convertContentsMap(data: Data?): Map<String, DataItem> {
         val map = LinkedHashMap<String, DataItem>()
 
