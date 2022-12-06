@@ -25,7 +25,7 @@ data class ContentsItemModel(
     @SerializedName("title")
     val _title: String?,
 
-    @SerializedName("_description")
+    @SerializedName("description")
     val _description: String?,
 
     @SerializedName("keyword")
