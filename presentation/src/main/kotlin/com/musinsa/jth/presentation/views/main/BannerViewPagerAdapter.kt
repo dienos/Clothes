@@ -1,19 +1,18 @@
 package com.musinsa.jth.presentation.views.main
 
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.musinsa.jth.domain.model.remote.Banner
 import com.musinsa.jth.domain.model.remote.ContentsItem
-import com.musinsa.jth.presentation.MuSinSaApplication.Companion.applicationContext
 import com.musinsa.jth.presentation.databinding.BannerSubItemBinding
-import com.musinsa.jth.presentation.views.web.Const
+import com.musinsa.jth.presentation.views.const.WebConst.WEB_URL
 import com.musinsa.jth.presentation.views.web.WebViewActivity
 
-class BannerViewPagerAdapter(private val list: List<ContentsItem>) :
+class BannerViewPagerAdapter(private val context : Context, private val list: List<ContentsItem>) :
     RecyclerView.Adapter<BannerViewPagerAdapter.PagerViewHolder>() {
 
     private lateinit var binding: BannerSubItemBinding
@@ -26,9 +25,8 @@ class BannerViewPagerAdapter(private val list: List<ContentsItem>) :
     }
 
     fun onBannerItemClick(url: String) {
-        val context =  applicationContext()
         val intent = Intent(context, WebViewActivity::class.java)
-        intent.putExtra(Const.WEB_URL, url)
+        intent.putExtra(WEB_URL, url)
         intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }

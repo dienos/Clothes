@@ -12,7 +12,7 @@ import com.musinsa.jth.data.model.local.ContentsType
 import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.presentation.databinding.ContentSubGoodsItemBinding
 import com.musinsa.jth.presentation.databinding.ContentSubStyleItemBinding
-import com.musinsa.jth.presentation.views.web.Const
+import com.musinsa.jth.presentation.views.const.WebConst.WEB_URL
 import com.musinsa.jth.presentation.views.web.WebViewActivity
 
 class ContentsSubAdapter(private val context : Context, private val type: String) :
@@ -123,7 +123,7 @@ class ContentsSubAdapter(private val context : Context, private val type: String
 
     fun onContentsItemClick(url: String) {
         val intent = Intent(context, WebViewActivity::class.java)
-        intent.putExtra(Const.WEB_URL, url)
+        intent.putExtra(WEB_URL, url)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }

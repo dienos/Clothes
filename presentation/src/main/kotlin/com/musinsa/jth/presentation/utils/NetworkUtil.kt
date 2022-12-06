@@ -7,11 +7,7 @@ import com.musinsa.jth.presentation.R
 import com.musinsa.jth.presentation.extensions.showDlg
 
 class NetworkUtil {
-    private var currentContext : Context? =null
-
-    fun setCurrentContext(context: Context?) {
-        currentContext = context
-    }
+    var currentContext : Context? = null
 
     private val networkCallBack = object : ConnectivityManager.NetworkCallback() {
         override fun onAvailable(network: Network) {

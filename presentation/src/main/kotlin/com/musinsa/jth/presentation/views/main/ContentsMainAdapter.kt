@@ -12,14 +12,13 @@ import com.musinsa.jth.domain.model.remote.ContentsItem
 import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.domain.model.remote.Footer
 import com.musinsa.jth.domain.model.remote.Header
-import com.musinsa.jth.presentation.MuSinSaApplication
 import com.musinsa.jth.presentation.databinding.BannerMainItemBinding
 import com.musinsa.jth.presentation.databinding.ContentMainItemBinding
-import com.musinsa.jth.presentation.views.web.Const
+import com.musinsa.jth.presentation.views.const.WebConst.WEB_URL
 import com.musinsa.jth.presentation.views.web.WebViewActivity
 
 class ContentsMainAdapter(
-    private val _activity: MainActivity,
+    private val activity: MainActivity,
     private val originalMap: Map<String, DataItem>,
     var currentMap: Map<String, List<ContentsItem>>
 ) : ListAdapter<List<ContentsItem>, RecyclerView.ViewHolder>(DiffCallback) {
@@ -41,7 +40,7 @@ class ContentsMainAdapter(
             _footer: Footer?,
             _type: String?
         ) {
-            bind.activity = _activity
+            bind.activity = activity
             bind.item = _item
 
             _type?.let {
@@ -181,11 +180,10 @@ class ContentsMainAdapter(
     override fun getItemCount(): Int = contentsKeys.size
 
     fun onContentsItemClick(url: String) {
-        val context = MuSinSaApplication.applicationContext()
-        val intent = Intent(context, WebViewActivity::class.java)
-        intent.putExtra(Const.WEB_URL, url)
+        val intent = Intent(activity, WebViewActivity::class.java)
+        intent.putExtra(WEB_URL, url)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
+        activity.startActivity(intent)
     }
 }
 

@@ -14,7 +14,6 @@ import com.musinsa.jth.domain.model.remote.DataItem
 import com.musinsa.jth.presentation.R
 import java.text.DecimalFormat
 
-
 @BindingAdapter(value = ["content_type"])
 fun scrollToPosition(view: NestedScrollView, type: String?) {
     type?.let {
@@ -30,7 +29,7 @@ fun scrollToPosition(view: NestedScrollView, type: String?) {
 @BindingAdapter(value = ["banner_items"])
 fun setBanners(view: ViewPager2, items: List<ContentsItem>?) {
     items?.let {
-        view.adapter = BannerViewPagerAdapter(it)
+        view.adapter = BannerViewPagerAdapter(view.context, it)
         view.orientation = ViewPager2.ORIENTATION_HORIZONTAL
     }
 }

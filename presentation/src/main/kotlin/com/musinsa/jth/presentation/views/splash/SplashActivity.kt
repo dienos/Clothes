@@ -9,26 +9,28 @@ import android.view.View
 import android.view.ViewTreeObserver
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.musinsa.jth.presentation.MuSinSaApplication.Companion.networkUtil
 import com.musinsa.jth.presentation.R
 import com.musinsa.jth.presentation.utils.AnimationUtil
 import com.musinsa.jth.presentation.utils.NetworkUtil
 import com.musinsa.jth.presentation.viewmodels.splash.SplashViewModel
 import com.musinsa.jth.presentation.views.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
+    @Inject lateinit var networkUtil: NetworkUtil
     private val viewModel by viewModels<SplashViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
 
-        networkUtil = NetworkUtil()
-        networkUtil()?.setCurrentContext(this)
-        networkUtil()?.registerNetworkCallback()
+        networkUtil.currentContext = this
+        networkUtil.registerNetworkCallback()
 
-        if (networkUtil()?.checkNetwork()!!) {
+        if (networkUtil.checkNetwork()) {
             val handler = Handler(mainLooper)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -64,7 +66,7 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
         } else {
-            networkUtil()?.networkNotConnect()
+            networkUtil.networkNotConnect()
         }
     }
 }

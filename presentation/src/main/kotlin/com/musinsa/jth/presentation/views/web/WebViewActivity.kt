@@ -6,7 +6,7 @@ import android.webkit.WebViewClient
 import com.musinsa.jth.presentation.R
 import com.musinsa.jth.presentation.databinding.WebActivityBinding
 import com.musinsa.jth.presentation.views.base.BaseActivity
-import com.musinsa.jth.presentation.views.web.Const.WEB_URL
+import com.musinsa.jth.presentation.views.const.WebConst.WEB_URL
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
