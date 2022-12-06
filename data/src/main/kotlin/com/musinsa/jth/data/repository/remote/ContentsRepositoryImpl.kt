@@ -1,4 +1,4 @@
-package com.musinsa.jth.data.repository
+package com.musinsa.jth.data.repository.remote
 
 import com.musinsa.jth.data.datasource.local.ContentsLocalSource
 import com.musinsa.jth.data.datasource.remote.ContentsRemoteSource
@@ -24,17 +24,18 @@ class ContentsRepositoryImpl @Inject constructor(
         type: String,
         originalMap: Map<String, DataItem>,
         currentMap: Map<String, List<ContentsItem>>
-    ): Map<String, List<ContentsItem>> =
-        localSource.getNextContentsItemListMap(type, originalMap, currentMap)
+    ): Map<String, List<ContentsItem>> = localSource.getNextContentsItemListMap(
+        type = type,
+        originalMap = originalMap,
+        currentMap = currentMap
+    )
 
     override fun getRandomContentsItemListMap(
         type: String,
         currentMap: Map<String, List<ContentsItem>>
-    ): Map<String, List<ContentsItem>> {
-       return localSource.getRandomContentsItemListMap(type, currentMap)
-    }
+    ): Map<String, List<ContentsItem>> =
+        localSource.getRandomContentsItemListMap(type = type, currentMap = currentMap)
 
-    override fun getNextContentsItemList(currentMap: Map<String, List<ContentsItem>>): List<List<ContentsItem>> {
-        return localSource.getNextContentsItemList(currentMap)
-    }
+    override fun getNextContentsItemList(currentMap: Map<String, List<ContentsItem>>): List<List<ContentsItem>> =
+        localSource.getNextContentsItemList(currentMap)
 }

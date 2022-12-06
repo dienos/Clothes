@@ -30,7 +30,7 @@ interface ContentsLocalSource {
 }
 
 class ContentsLocalSourceImpl @Inject constructor(
-    private val service: MuSinSaService
+    private val service: MuSinSaService //do nothing
 ) : ContentsLocalSource {
     override fun convertContentsMap(data: Data?): Map<String, DataItem> {
         val map = LinkedHashMap<String, DataItem>()

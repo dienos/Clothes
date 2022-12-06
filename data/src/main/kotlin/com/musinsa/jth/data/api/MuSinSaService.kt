@@ -1,6 +1,6 @@
 package com.musinsa.jth.data.api
 
-import com.musinsa.jth.data.api.Const.INTERVIEW_URI
+import com.musinsa.jth.data.const.ApiConst.INTERVIEW_URI
 import com.musinsa.jth.data.model.remote.DataModel
 import retrofit2.http.GET
 

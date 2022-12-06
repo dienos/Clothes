@@ -15,12 +15,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object ApiModule {
-
     private const val CONNECT_TIMEOUT = 15L
     private const val WRITE_TIMEOUT = 15L
     private const val READ_TIMEOUT = 15L
     private const val BASE_URL = "https://meta.musinsa.com"
-
 
     @Provides
     @Singleton
